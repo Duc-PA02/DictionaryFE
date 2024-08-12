@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Info</title>
+    <link rel="stylesheet" href="../css/userInfo.css">
+    <script type="module" src="../js/userInfo.js" defer></script>
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
+</head>
+<body>
+    <header-component></header-component>
+    <main>
+        <div class="container">
+            <form id="user-info-form">
+                <div class="form-group">
+                    <img id="avatar-preview" src="" alt="Avatar Preview">
+                    <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;">
+                    <button type="button" id="change-avatar-button"></button>
+                </div>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth" name="dateOfBirth" disabled>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender" disabled>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                        <option value="OTHER">Other</option>
+                    </select>
+                </div>
+                <button type="button" id="edit-button">Edit Info</button>
+                <button type="button" id="back-button" style="display: none;">Back</button>
+                <button type="submit" id="save-button" style="display: none;">Save</button>
+                <button type="button" id="change-password-button">Change Password</button>
+                <div id="update-message"></div>
+            </form>
+        </div>
+    </main>
+    <footer-component></footer-component>
+</body>
+</html>

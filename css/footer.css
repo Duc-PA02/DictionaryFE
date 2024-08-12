@@ -1,0 +1,22 @@
+/* Footer.css */
+
+.footer {
+    background-color: #003366;
+    padding: 20px;
+    text-align: center;
+    color: #FFF;
+}
+
+.logo-footer {
+    width: 50px;
+    height: auto;
+}
+
+.footer p {
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.footer span {
+    font-size: 14px;
+}
