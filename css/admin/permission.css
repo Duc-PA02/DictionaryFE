@@ -1,0 +1,131 @@
+/* permission.css */
+
+/* Định dạng bảng quyền (permission) */
+.permission-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.permission-table th, .permission-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.permission-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.permission-table td {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Định dạng các hành động của quyền (permission actions) */
+.permission-actions button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.permission-actions .add-permission-btn {
+    background-color: #2196F3;
+    color: white;
+}
+
+.permission-actions .delete-button {
+    background-color: #f44336;
+}
+
+.permission-actions button:hover {
+    opacity: 0.8;
+}
+
+.permission-actions button:focus {
+    outline: none;
+}
+
+/* Định dạng chung cho các modal (cả add và edit) */
+.modal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed; /* Định vị modal */
+    z-index: 1; /* Hiển thị trên các phần tử khác */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Cho phép scroll nếu modal vượt quá chiều cao màn hình */
+    background-color: rgba(0, 0, 0, 0.4); /* Màu nền mờ */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* Tạo khoảng cách từ trên xuống và căn giữa modal */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Chiều rộng của modal */
+    max-width: 500px; /* Chiều rộng tối đa của modal */
+    border-radius: 8px;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover, .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Định dạng cho các form trong modal */
+.modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.modal form label {
+    font-size: 16px;
+    color: #333;
+}
+
+.modal form input[type="text"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.modal form button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.modal form button:hover {
+    opacity: 0.8;
+}
+
+.modal form button:focus {
+    outline: none;
+}
+
