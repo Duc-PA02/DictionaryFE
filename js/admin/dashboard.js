@@ -19,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const directionSelect = document.getElementById("direction");
     const pagination = document.querySelector(".pagination");
     const userControls = document.getElementById("user-controls");
-    const addPermissionBtn = document.getElementById("add-permission-btn");
     const addPermissionModal = document.getElementById("add-permission-modal");
     const closeAddModalBtn = document.querySelector("#add-permission-modal .close-btn");
     const closeEditModalBtn = document.querySelector("#edit-permission-modal .close-btn");
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
         userControls.style.display = "none";
         userList.style.display = "none";
         permissionList.style.display = "block";
-        addPermissionBtn.style.display = "block";
         loadPermissionsAndDisplay();
     });
 
@@ -69,10 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     directionSelect.addEventListener("change", function() {
         loadUsers();
-    });
-
-    addPermissionBtn.addEventListener("click", function() {
-        addPermissionModal.style.display = "block";
     });
 
     // Sự kiện click để đóng modal edit
@@ -118,6 +112,49 @@ document.addEventListener("DOMContentLoaded", function() {
             .catch(error => console.error('Error:', error));
     }
 
+    function displayUsers(users) {
+        userList.innerHTML = "";
+    
+        const table = document.createElement("table");
+        table.className = "user-table";
+        table.innerHTML = `
+            <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        `;
+        userList.appendChild(table);
+    
+        const tbody = table.querySelector("tbody");
+        users.forEach(user => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td><img src="${user.avatar ? user.avatar : 'https://via.placeholder.com/50'}" alt="Avatar" class="user-avatar"></td>
+                <td>${user.username}</td>
+                <td>${user.status ? user.status : 'N/A'}</td>
+                <td class="user-actions">
+                    <button class="detail-button" data-id="${user.id}">Detail</button>
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
+    
+        // Gắn sự kiện cho nút "Detail"
+        tbody.addEventListener("click", function(event) {
+            if (event.target.classList.contains("detail-button")) {
+                const userId = event.target.dataset.id;
+                // Thực hiện hành động khi nhấn vào nút "Detail"
+                showUserDetail(userId);
+            }
+        });
+    }
+    
+
     async function loadPermissionsAndDisplay(page = 0) {
         try {
             const result = await loadPermissions(page);
@@ -126,23 +163,6 @@ document.addEventListener("DOMContentLoaded", function() {
         } catch (error) {
             console.error('Error:', error);
         }
-    }
-
-    function displayUsers(users) {
-        userList.innerHTML = "";
-        users.forEach(user => {
-            const userCard = document.createElement("div");
-            userCard.className = "card";
-            userCard.innerHTML = `
-                <div class="user-info">
-                    <img src="${user.avatar ? user.avatar : 'https://via.placeholder.com/50'}" alt="Avatar">
-                    <div>
-                        <h3>${user.username}</h3>
-                    </div>
-                </div>
-            `;
-            userList.appendChild(userCard);
-        });
     }
     
     addPermissionForm.addEventListener("submit", async function(event) {
@@ -233,7 +253,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     permissionList.addEventListener("click", function(event) {
-        if (event.target.classList.contains("edit-button")) {
+        if (event.target.classList.contains("add-permission-btn")) {
+            addPermissionModal.style.display = "block";
+        }
+        else if (event.target.classList.contains("edit-button")) {
             const permissionId = event.target.dataset.id;
             const permissionRow = event.target.closest('tr');
             const permissionName = permissionRow.cells[0].textContent;
