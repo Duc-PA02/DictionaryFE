@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../css/admin/searchAddToTopic.css">
     <link rel="stylesheet" href="../css/admin/user.css">
     <link rel="stylesheet" href="../css/admin/permission.css">
+    <link rel="stylesheet" href="../css/admin/userdetail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
 </head>
@@ -27,117 +28,124 @@
     </div>
     <div class="main-content">
         <div class="header">
+            <div id="breadcrumb"></div>
             <div class="menu">
                 <i class="fa-sharp fa-solid fa-bell"></i>
                 <ul id="notification-list" class="notification-list"></ul>
             </div>
         </div>
-        <div class="content">
-            <div id="user-controls" class="controls">
-                <select id="sort">
-                    <option value="username" selected>Username</option>
-                    <option value="fullname">Full Name</option>
-                </select>
-                <select id="direction">
-                    <option value="asc" selected>A - Z</option>
-                    <option value="desc">Z - A</option>
-                </select>
-            </div>
-            <div id="user-list" class="card-list">
-                <!-- User list will be populated here -->
-            </div>
-            <div id="permission-list" class="card-list" style="display:none;">
-                <!-- Permission list will be populated here -->
-            </div>
+        <div id="main-content-area">
+            <div class="content">
+                <div id="user-controls" class="controls">
+                    <select id="sort">
+                        <option value="username" selected>Username</option>
+                        <option value="fullname">Full Name</option>
+                    </select>
+                    <select id="direction">
+                        <option value="asc" selected>A - Z</option>
+                        <option value="desc">Z - A</option>
+                    </select>
+                </div>
+                <div id="user-list" class="card-list">
+                    <!-- User list will be populated here -->
+                </div>
+                <button id="add-permission-btn" style="display:none;"><i class="fa-solid fa-plus"></i></button> 
+                <div id="permission-list" class="card-list" style="display:none;">
+                    <!-- Permission list will be populated here -->
+                </div>
 
-            <!-- vnp -->
-            <div id="topic-list" class="card-list-topic-list" style="display: none; color: black;">
-            </div>
+                <!-- Topic section -->
+                <div id="topic-list" class="card-list-topic-list" style="display: none; color: black;"></div>
+                <div id="topic-word" class="card-list" style="display: none; color: black;"></div>
 
-            <div id="topic-word" class="card-list" style="display: none; color: black;"></div>
-            <div id="add-topic-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Add New Topic</h2>
-                    <form id="add-topic-form">
-                        <label for="topic-name">Name</label>
-                        <input type="text" id="topic-name" name="name" required>
-                        <button type="submit">Submit</button>
-                    </form>
+                <div class="pagination">
+                    <!-- Pagination buttons will be populated here -->
                 </div>
             </div>
-            <div id="edit-topic-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Add New Topic</h2>
-                    <form id="edit-topic-form">
-                        <label for="topic-name-edit">Name</label>
-                        <input type="text" id="topic-name-edit" name="name" required>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <div id="add-topic-word-modal" class="modal">
-                <div class="modal-content-1">
-                    <span class="close-btn">&times;</span>
-                    <div class="search-bar-container">
-                        <div class="search-bar">
-                            <input type="search" id="searchWordAddTopic" placeholder="Search English">
-                            <button type="button" class="search-button" id="searchButton">
-                                <img src="../Image/search-icon.png" alt="Search" class="search-icon">
-                            </button>
-                        </div>
-                    </div>
-                    <!--END SEARCH BAR-->
-                    <div id="contentSearchAddTopic" class="contentSearchAddTopic">
-                    </div>
-                </div>
-            </div>
-            <div id="messageModal" class="messageModal">
-                <div class="messageModalContent">
-                    <span class="closeMessageModal" onclick="closeModal()">&times;</span>
-                    <p id="modalMessage"></p>
-                    <button id="okButton" onclick="closeModal()">OK</button>
-                </div>
-            </div>
-            <!-- end vnp -->
-            <div id="add-permission-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Add API</h2>
-                    <form id="add-permission-form">
-                        <label for="permission-name">Name</label>
-                        <input type="text" id="permission-name" name="name" required>
-                        <label for="permission-method">Method</label>
-                        <input type="text" id="permission-method" name="method" required>
-                        <label for="permission-path">Path</label>
-                        <input type="text" id="permission-path" name="path" required>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-            <div id="edit-permission-modal" class="modal">
-                <div class="modal-content">
-                    <span class="close-btn">&times;</span>
-                    <h2>Edit API</h2>
-                    <form id="edit-permission-form">
-                        <label for="edit-permission-name">Name</label>
-                        <input type="text" id="edit-permission-name" name="name" required>
-                        <label for="edit-permission-method">Method</label>
-                        <input type="text" id="edit-permission-method" name="method" required>
-                        <label for="edit-permission-path">Path</label>
-                        <input type="text" id="edit-permission-path" name="path" required>
-                        <button type="submit">Update</button>
-                    </form>
-                </div>
-            </div>            
-            <div class="pagination">
-                <!-- Pagination buttons will be populated here -->
+            <div id="user-detail-content" style="display:none;">
+                <!-- User detail content will be inserted here -->
             </div>
         </div>
     </div>
-    <script type="module" src="../js/admin/topic.js"></script>
-    
+
+    <!-- Modals -->
+    <div id="add-permission-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add API</h2>
+            <form id="add-permission-form">
+                <label for="permission-name">Name</label>
+                <input type="text" id="permission-name" name="name" required>
+                <label for="permission-method">Method</label>
+                <input type="text" id="permission-method" name="method" required>
+                <label for="permission-path">Path</label>
+                <input type="text" id="permission-path" name="path" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="edit-permission-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Edit API</h2>
+            <form id="edit-permission-form">
+                <label for="edit-permission-name">Name</label>
+                <input type="text" id="edit-permission-name" name="name" required>
+                <label for="edit-permission-method">Method</label>
+                <input type="text" id="edit-permission-method" name="method" required>
+                <label for="edit-permission-path">Path</label>
+                <input type="text" id="edit-permission-path" name="path" required>
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Topic modals -->
+    <div id="add-topic-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Add New Topic</h2>
+            <form id="add-topic-form">
+                <label for="topic-name">Name</label>
+                <input type="text" id="topic-name" name="name" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="edit-topic-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Edit Topic</h2>
+            <form id="edit-topic-form">
+                <label for="topic-name-edit">Name</label>
+                <input type="text" id="topic-name-edit" name="name" required>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div id="add-topic-word-modal" class="modal">
+        <div class="modal-content-1">
+            <span class="close-btn">&times;</span>
+            <div class="search-bar-container">
+                <div class="search-bar">
+                    <input type="search" id="searchWordAddTopic" placeholder="Search English">
+                    <button type="button" class="search-button" id="searchButton">
+                        <img src="../Image/search-icon.png" alt="Search" class="search-icon">
+                    </button>
+                </div>
+            </div>
+            <div id="contentSearchAddTopic" class="contentSearchAddTopic"></div>
+        </div>
+    </div>
+    <div id="messageModal" class="messageModal">
+        <div class="messageModalContent">
+            <span class="closeMessageModal" onclick="closeModal()">&times;</span>
+            <p id="modalMessage"></p>
+            <button id="okButton" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
     <script type="module" src="../js/admin/dashboard.js"></script>
+    <script type="module" src="../js/admin/topic.js"></script>
 </body>
 </html>

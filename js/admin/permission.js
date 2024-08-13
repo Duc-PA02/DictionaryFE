@@ -48,7 +48,6 @@ export function displayPermissions(permissions, permissionList) {
             <td>${permission.method}</td>
             <td>${permission.path}</td>
             <td class="permission-actions">
-                <button class="add-permission-btn">Add API</button>
                 <button class="edit-button" data-id="${permission.id}">Edit</button>
                 <button class="delete-button" data-id="${permission.id}">Delete</button>
             </td>

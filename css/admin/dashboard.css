@@ -70,7 +70,7 @@ body {
     padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 20px;
     color: white;
     border-bottom: 1px solid #333;
@@ -173,4 +173,39 @@ body {
 
 .fa-bell {
     cursor: pointer;
+}
+
+/* Định dạng phần controls */
+.controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px; /* Khoảng cách giữa các phần tử bên trong controls */
+}
+
+/* Định dạng chung cho các select */
+.controls select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.controls select:hover {
+    border-color: #888; /* Đổi màu border khi hover */
+}
+
+.controls select:focus {
+    outline: none;
+    border-color: #2196F3; /* Đổi màu border khi focus */
+}
+
+/* Tùy chỉnh thêm nếu cần */
+.controls select option {
+    padding: 8px;
+    font-size: 14px;
 }

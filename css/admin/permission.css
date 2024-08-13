@@ -37,20 +37,28 @@
     transition: background-color 0.3s;
 }
 
-.permission-actions .add-permission-btn {
+#add-permission-btn {
     background-color: #2196F3;
     color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+    width: 50px;
 }
 
-.permission-actions .delete-button {
+.permission-table .delete-button {
     background-color: #f44336;
 }
 
-.permission-actions button:hover {
+.permission-table button:hover {
     opacity: 0.8;
 }
 
-.permission-actions button:focus {
+.permission-table button:focus {
     outline: none;
 }
 
