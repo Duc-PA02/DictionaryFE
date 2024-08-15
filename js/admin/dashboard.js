@@ -33,7 +33,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const editPermissionPathInput = document.getElementById("edit-permission-path");
     const sidebarHeader = document.querySelector('.sidebar-header h2');
     const bellIcon = document.querySelector('.fa-bell');
-    const userDetail = document.getElementById("user-detail-content");
     let currentPage = 0;
     
     // Set default sort and direction
