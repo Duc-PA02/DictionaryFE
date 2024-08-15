@@ -1,0 +1,248 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    overflow-x: hidden; /* Prevents horizontal overflow */
+}
+.result-search{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5); 
+    right: 0px;
+    left: 0px;
+
+}
+.result-search li{
+    list-style: none;
+    background-color: rgba(200, 200, 200, 0); 
+    padding: 10px;
+}
+.result-search li:hover a{
+    background-color: #2980b9; 
+    color: #fff;
+}
+.result-search li:hover {
+    background-color: #2980b9; 
+}
+.result-search li a{
+   text-decoration: none;
+   font-size: 20px;
+   color: #fff;
+
+}
+/* Sidebar Styling */
+/* .sidebar {
+    width: 300px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-y: auto;
+    position: fixed;
+} */
+
+/* Current User Section */
+
+/* Navigation Bar */
+/* .navigation {
+    display: flex;
+    flex-direction: column;
+}
+
+.navigation-item {
+    color: #ecf0f1;
+    padding: 15px 20px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+    width: 100%;
+    border-radius: 5px;
+}
+
+.navigation-item:hover {
+    background-color: #2980b9;
+    color: #fff;
+}
+
+.navigation-item.active {
+    background-color: #3498db;
+} */
+
+/* Content Styling */
+/* .content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: #fff;
+    overflow-y: auto;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 320px;
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    min-height: 100vh;
+} */
+
+/* Wrapper for content and pagination */
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Search Container */
+.search-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+.search-container .main-search-container {
+    position: relative;
+}
+
+.search-word {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.add-word-btn {
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+
+}
+.add-word-btn:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+/* Word List */
+.list-word-container {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+.word-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    background: #ecf0f1;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    text-decoration: none;
+    color: #2c3e50;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.word-item:hover {
+    color: #fff;
+    background-color: #3498db;
+    /* background: #2980b9; */
+    /* transform: scale(1.01); */
+}
+
+.word-item label {
+    width: 30px;
+    font-weight: bold;
+}
+
+.word-item .name {
+    margin-left: 15px;
+    font-size: 18px;
+}
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.page {
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.page:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+.pagination-container .active {
+    background-color: #2c3e50;
+}
+
+/* Content Add Word */
+.content .add-word {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* .content .add-word a {
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    background-color: #2ecc71;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+} */
+
+/* .content .add-word a:hover {
+    background-color: #27ae60;
+} */
+
+.content .add-word label {
+    font-size: 18px;
+    color: #2c3e50;
+}
+
+/* Word Container */
+.content .word-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Word Item */
+.content .word-container .word-item {
+    padding: 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: 700;
+    border-top: 2px solid #3498db;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    border-radius: 5px;
+}
+
+.content .word-container .word-item:hover {
+    background-color: #dbe3e7;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+

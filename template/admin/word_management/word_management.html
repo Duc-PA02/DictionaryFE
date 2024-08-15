@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../../../css/admin/dashboard.css">
+    <link rel="stylesheet" href="../../../css/admin/word_management/word_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2></h2>
+        </div>
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
+            <li><a href="word_management.html"><i class="fas fa-user"></i> Word Management</a></li>
+            <li><a href="#settings"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="menu">
+                <span>Welcome, !</span>
+            </div>
+        </div>
+        <div class="content">
+            <div class="content-wrapper">
+                <div class="search-container">
+                    <div class="main-search-container">
+                        <input type="text" class="search-word" placeholder="Search...">
+                        <ul class="result-search">
+                            
+                        </ul>
+                    </div>
+                    <a type="text" class="add-word-btn" >Add word</a>
+                </div>
+                <div id="section-word">
+                    <!-- Your word items here -->
+                    <div class="word-item">
+                        <label for="id">
+                            1
+                        </label>
+                        <div class="name">Good</div>
+                    </div>
+                    <div class="word-item">
+                        <label for="id">
+                            2
+                        </label>
+                        <div class="name">Good</div>
+                    </div>
+                    <div class="word-item">
+                        <label for="id">
+                            3
+                        </label>
+                        <div class="name">Good</div>
+                    </div>
+                    <div class="word-item">
+                        <label for="id">
+                            4
+                        </label>
+                        <div class="name">Good</div>
+                    </div>
+                </div>
+            </div>
+            <div class="pagination-container">
+                
+                <!-- Your pagination here -->
+                <div class="page">
+                    1
+                </div>
+                <div class="page">
+                    2
+                </div>
+                <div class="page">
+                    3
+                </div>
+                <div class="page">
+                    4
+                </div>
+                <div class="page">
+                    10
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <script type="module" src="../../../js/dashboard.js"></script> -->
+    <script src="../../../js/admin/word_management/word-management.js"></script>
+</body>
+</html>
