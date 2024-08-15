@@ -1,0 +1,993 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    overflow-x: hidden; 
+   
+}
+
+.content {
+    margin-left: 50px;
+}
+
+.content .btn-container{
+    display: flex;
+    flex-direction: row-reverse;
+    /* background-color: #fff; */
+}
+
+.content .btn-container .btn{ 
+    /* display: flex; */
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    margin: 0 5px;
+    /* border-radius: 5px; */
+    border: 1px black;
+    border-radius: 5px;
+    cursor: pointer;
+    /* transition: background 0.3s ease, transform 0.2s ease; */
+}
+
+.content .btn-container .btn-delete{
+    background: #ff4949;
+}
+
+.content .btn-container .btn-add{
+    background: #2980b9;
+}
+
+.content .btn-container .btn-save{
+    background: #1abc9c;
+}
+
+.content .btn-container .btn-edit:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+.content .btn-container .btn-delete:hover{
+    /* background: #ff4949; */
+    background: #d44040;
+    transform: scale(1.05);
+}
+
+.content .btn-container .btn-save:hover{
+    background: #26695c;
+    transform: scale(1.05);
+}
+
+.content #word-label{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    align-items: baseline;
+}
+
+#word-name-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#word-name-container div.word-name{
+    font-size: 30px;
+    padding: 8px 0px;
+    /* border-radius: 5px; */
+}
+
+
+/* word-label - btn edit */
+.content #word-label.normal .btn-save{
+    display: none;
+}
+
+.content #word-label.normal .btn-edit{
+    display: flex;
+}
+
+.content #word-label.normal .btn-delete{
+    display: flex;
+}
+.content #word-label.normal div.word-name{
+    display: flex;
+}
+.content #word-label.normal input.word-name{
+    display: none;
+}
+
+.content #word-label.edit .btn-save{
+    display: flex;
+}
+
+.content #word-label.edit .btn-edit{
+    display: none;
+}
+
+.content #word-label.edit .btn-delete{
+    display: none;
+}
+
+.content #word-label.edit div.word-name{
+    display: none;
+}
+.content #word-label.edit input.word-name{
+    display: flex;
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none;
+}
+.content  input{
+    padding: 0.5rem; /* Space inside the input field */
+    border: 1px solid #ccc; /* Default border */
+    border-radius: 4px; /* Rounded corners */
+    font-size: 1rem; 
+}
+
+
+input.error {
+    border: 1px solid red !important;
+}
+
+
+
+/* .content #word-label.edit .btn-save{
+    display: flex;
+}
+
+.content #word-label.edit .btn-edit{
+    display: none;
+}
+
+.content #word-label.edit .btn-delete{
+    display: none;
+} */
+
+
+/* Type section */
+
+#type-section {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0px;
+    font-size: 24px;
+    border-top: 1px solid #2980b9;
+}
+
+#type-section #type-container{
+    /* margin: 8px 0px; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.type-item{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    padding: 10px;
+    position: relative;
+    border: 1px solid #d1d4d4;
+    /* border-top: #2c3e50 5px solid; */
+    justify-content: space-around;
+    transition: box-shadow 0.3s ease;
+}
+
+#type-section #type-container .normal .type-label .btn-container .btn-edit{
+    display: none;
+}
+#type-section #type-container .normal .type-label .btn-container .btn-delete{
+    display: none;
+}
+#type-section #type-container .normal .word-of-type{
+    display: none;
+}
+
+#type-section #type-container .normal .save-type{
+    display: none;
+}
+
+
+#type-section #type-container .active .type-label .btn-container .btn-edit{
+    display: flex;
+}
+#type-section #type-container .active .type-label .btn-container .btn-delete{
+    display: flex;
+}
+#type-section #type-container .active .word-of-type{
+    display: none;
+}
+#type-section #type-container .active .save-type{
+    display: none;
+}
+
+
+.type-item.edit .type-label .btn-container .btn-edit{
+    display: none;
+}
+.type-item.edit .type-label .btn-container .btn-delete{
+    display: none;
+}
+.type-item.edit .word-of-type{
+    display: block;
+}
+.type-item.edit .edit .save-type{
+    display: flex;
+}
+
+
+
+
+/* #type-section #type-container .edit .type-label .btn-container .btn-edit{
+    display: flex;
+}
+#type-section #type-container .edit .type-label .btn-container .btn-delete{
+    display: flex;
+} */
+#type-section #type-container .edit .word-of-type{
+    display: none;
+}
+#type-section #type-container .edit .save-type{
+    display: flex;
+}
+
+
+
+#type-section #type-container .type-item:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+
+#type-section #type-container .type-item .type-name{
+    font-size: 20px;
+    color: #1abc9c;
+    margin-bottom: 5px;
+   
+}
+
+#type-section #type-container .type-item  .type-label{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* align-items: baseline; */
+}
+
+#btn-add-type {
+    display: none;
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    /* border-radius: 5px; */
+    border: 1px black;
+    cursor: pointer;
+    /* transition: background 0.3s ease, transform 0.2s ease; */
+}
+
+#type-section.edit #btn-add-type{
+    display: flex;
+}
+
+#btn-add-type:hover {
+    background: #2980b9;
+    transform: scale(1.05);
+}
+
+
+/* pronunciation */
+ .type-item .pronunciation-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+ .type-item .pronunciation-section.normal .label-container{
+    display: none;
+}
+
+ .type-item .pronunciation-section.active .label-container{
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.type-item .pronunciation-section.active .label-container label, button{
+    margin-right: 12px;
+
+}
+
+
+ .type-item .pronunciation-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.type-item .pronunciation-container .pronunciation-item{
+    display: flex;
+    align-items: center;
+    margin-right: 30px;
+    text-decoration: none;
+    color: #333;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.type-item .pronunciation-container .pronunciation-item div,audio,i{
+    padding-right: 10px;
+}
+
+.type-item .pronunciation-container .pronunciation-item:hover{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #3498db;
+}
+
+ .type-item .pronunciation-container .pronunciation-item input
+{
+    /* padding-right: 8px; */
+    display: block;
+    padding: 8px;
+    /* border: #2c3e50 1px solid; */
+    margin-right: 4px;
+    width: fit-content;
+}
+
+.btn-add-pronunciation:hover {
+    background: #2980b9;
+}
+
+
+.type-item .pronunciation-container .pronunciation-item.normal .btn-save{
+    display: none;
+}
+.type-item .pronunciation-container .pronunciation-item.normal .btn-delete{
+    display: none;
+}
+.type-item .pronunciation-container .pronunciation-item.normal .btn-edit{
+    display: none;
+}
+
+
+
+.type-item .pronunciation-container .pronunciation-item.active .btn-save{
+    display: none;
+}
+.type-item .pronunciation-container .pronunciation-item.active .btn-delete{
+    display: flex;
+}
+.type-item .pronunciation-container .pronunciation-item.active .btn-edit{
+    display: flex;
+}
+
+
+.type-item .pronunciation-container .pronunciation-item.edit .btn-save{
+    display: flex;
+}
+.type-item .pronunciation-container .pronunciation-item.edit .btn-delete{
+    display: none;
+}
+.type-item .pronunciation-container .pronunciation-item.edit .btn-edit{
+    display: none;
+}
+
+
+#type-section #type-container .type-item .pronunciation-section .btn-add-pronunciation{
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    border: 1px black;
+    cursor: pointer;
+}
+
+
+
+/* definitions */
+
+ .type-item .definition-section {
+    display: flex;
+    flex-direction: column;
+
+}
+ .type-item .definition-container{
+    
+    list-style-type: circle;
+    padding: 0px 0px 0px 22px;
+}
+ .type-item .definition-container .example{
+    color: #2980b9;
+    font-style: italic;
+}
+
+
+.type-item .definition-section .btn-add-definition{
+    padding: 10px 15px;
+    background: #3498db;
+    color: #fff;
+    border-radius: 5px;
+    border: 1px black;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.type-item .definition-section.normal .label-container{
+    display: none;
+}
+
+ .type-item .definition-section.active .label-container{
+    display: flex;
+}
+
+
+.type-item .definition-container .definition-item.normal .btn-save{
+    display: none;
+}
+.type-item .definition-container .definition-item.normal .btn-delete{
+    display: none;
+}
+.type-item .definition-container .definition-item.normal .btn-edit{
+    display: none;
+}
+
+
+
+.type-item .definition-container .definition-item.active .btn-save{
+    display: none;
+}
+.type-item .definition-container .definition-item.active .btn-delete{
+    display: flex;
+}
+.type-item .definition-container .definition-item.active .btn-edit{
+    display: flex;
+}
+
+.type-item .definition-container .definition-item.edit .btn-save{
+    display: flex;
+}
+.type-item .definition-container .definition-item.edit .btn-delete{
+    display: none;
+}
+.type-item .definition-container .definition-item.edit .btn-edit{
+    display: none;
+}
+
+
+/* Antonym section */
+
+.content #antonym-section {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0px;
+    margin-bottom: 15px;
+    border-top: 1px solid #2980b9;
+}
+
+.content #antonym-section .antonym-label {
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.content #antonym-section #antonym-search {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    /* border-radius: 5px; */
+    margin-bottom: 10px;
+}
+
+.content #antonym-section .antonym-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.content #antonym-section .antonym-container .antonym-item {
+    position: relative;
+    text-decoration: none;
+    color: #2980b9;
+    margin-right: 12px;
+    display: flex;
+    padding: 12px 24px;
+    font-size: 18px;
+    margin-bottom: 8px;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.content #antonym-section .antonym-container .antonym-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.content #antonym-section .antonym-container .antonym-item.edit {
+    background-color: #8c9996;
+    color: #fff;
+}
+
+.content #antonym-section .antonym-container .edit::after {
+    content: "\f00d"; /* Font Awesome close icon */
+    font-family: "Font Awesome 5 Free"; /* Specify Font Awesome font */
+    font-weight: 900; /* Use solid style */
+    color: #ffffff; /* Màu biểu tượng */
+    position: absolute;
+    background-color: #e74c3c; /* Màu nền tùy chỉnh */
+    /* border-radius: 4px; Bo tròn các góc, hoặc bỏ nếu không muốn */
+    width: 20px; /* Kích thước cố định để tạo hình vuông */
+    height: 20px; /* Kích thước cố định để tạo hình vuông */
+    font-size: 16px; /* Kích thước font chữ */
+    top: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    right: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    cursor: pointer;
+    display: flex; /* Sử dụng Flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.content #antonym-section .antonym-container .edit:hover::after {
+    background-color: #ff4949; /* Darker shade on hover */
+}
+
+.content #antonym-section .antonym-container .antonym-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.content #antonym-section .antonym-container .antonym-item.edit {
+    background-color: #8c9996;
+    color: #fff;
+}
+
+.antonym-search{
+    position: relative;
+}
+
+.result-search{
+    z-index: 10;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5); 
+    right: 0px;
+    left: 0px;
+
+}
+.result-search li{
+    list-style: none;
+    background-color: rgba(200, 200, 200, 0); 
+    padding: 10px;
+}
+.result-search li:hover div{
+    background-color: #2980b9; 
+    color: #fff;
+}
+.result-search li:hover div {
+    background-color: #2980b9; 
+}
+.result-search li div{
+   text-decoration: none;
+   font-size: 20px;
+   color: #fff;
+
+}
+
+
+
+/* Synonym section */
+
+.content #synonym-section {
+    display: flex;
+    flex-direction: column;
+    padding: 12px 0px;
+    margin-bottom: 15px;
+    border-top: 1px solid #2980b9;
+}
+
+.content #synonym-section .synonym-label {
+    padding: 5px 0;
+    margin-bottom: 5px;
+}
+
+.content #synonym-section #synonym-search {
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    /* border-radius: 5px; */
+    margin-bottom: 10px;
+}
+
+.content #synonym-section .synonym-container {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.content #synonym-section .synonym-container .synonym-item {
+    position: relative;
+    margin-right: 12px;
+    color: #2980b9;
+    display: flex;
+    padding: 12px 24px;
+    font-size: 18px;
+    margin-bottom: 8px;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.content #synonym-section .synonym-container .synonym-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.content #synonym-section .synonym-container .synonym-item.edit {
+    background-color: #8c9996;
+    color: #fff;
+}
+
+.content #synonym-section .synonym-container .edit::after {
+    content: "\f00d"; /* Font Awesome close icon */
+    font-family: "Font Awesome 5 Free"; /* Specify Font Awesome font */
+    font-weight: 900; /* Use solid style */
+    color: #ffffff; /* Màu biểu tượng */
+    position: absolute;
+    background-color: #e74c3c; /* Màu nền tùy chỉnh */
+    /* border-radius: 4px; Bo tròn các góc, hoặc bỏ nếu không muốn */
+    width: 20px; /* Kích thước cố định để tạo hình vuông */
+    height: 20px; /* Kích thước cố định để tạo hình vuông */
+    font-size: 16px; /* Kích thước font chữ */
+    top: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    right: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    cursor: pointer;
+    display: flex; /* Sử dụng Flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.content #synonym-section .synonym-container .edit:hover::after {
+    background-color: #ff4949; /* Darker shade on hover */
+}
+
+.synonym-search{
+    position: relative;
+}
+
+.result-search{
+    z-index: 10;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5); 
+    right: 0px;
+    left: 0px;
+
+}
+.result-search li{
+    list-style: none;
+    background-color: rgba(200, 200, 200, 0); 
+    padding: 10px;
+}
+.result-search li:hover div{
+    background-color: #2980b9; 
+    color: #fff;
+}
+.result-search li:hover div {
+    background-color: #2980b9; 
+}
+.result-search li div{
+   text-decoration: none;
+   font-size: 20px;
+   color: #fff;
+
+}
+
+
+/* modal */
+
+.modal-type {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    padding-top: 60px;
+}
+
+.modal-type .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    min-width: 1000px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.modal-type .modal-content .type-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-type .modal-content .type-item .type-label {
+    margin-bottom: 20px;
+}
+
+.modal-type .modal-content .type-item .type-label select {
+    padding: 10px;
+    font-size: 20px;
+}
+
+.modal-type .modal-content .label-container {
+    display: flex;
+}
+
+.modal-type .modal-content .pronunciation-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.modal-type .modal-content .pronunciation-section .pronunciation-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.modal-type .modal-content .pronunciation-section .pronunciation-container .pronunciation-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    text-decoration: none;
+    color: #333;
+    margin-right: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.modal-type .modal-content .pronunciation-section .pronunciation-container .pronunciation-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #3498db;
+}
+
+i{
+    font-size: 20px;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.modal-type .modal-content .definition-container {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.modal-type .modal-content .definition-container .definition-item {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-decoration: none;
+    color: #333;
+    padding: 5px 12px;
+    margin-bottom: 8px;
+    margin: 0px !important;
+    border: 1px solid #ecf0f1;
+    border-radius: 5px;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.modal-type .modal-content .definition-container .definition-item .definition {
+    font-size: 20px;
+    color: #3498db;
+}
+.modal-type .modal-content .definition-container .definition-item .example {
+    font-size: 20px;
+    color: #333;
+}
+
+.modal-type .type-item input {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: 2px solid #ddd;
+    border-radius: 30px;
+    outline: none;
+    background: #fff;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.modal-type .pronunciation-item input[type="text"] {
+    padding: 8px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px !important;
+    width: 150px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.modal-type .pronunciation-item input[type="text"]:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+
+
+
+.modal-type .definition-item.edit {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.modal-type .definition-item input[type="text"],
+.modal-type .definition-item textarea {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.modal-type .definition-item input[type="text"]:focus,
+.modal-type .definition-item textarea:focus {
+    border-color: #6c63ff;
+    outline: none;
+}
+
+.modal-type .definition-item textarea {
+    resize: vertical;
+}
+
+.modal-type .definition-item .btn-container {
+    display: flex;
+    justify-content: flex-end;
+}
+.modal-type .pronunciation-item .btn-container {
+    display: flex;
+    margin-left: auto;
+}
+
+.modal-type .definition-item .btn {
+    padding: 8px 16px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.modal-type .type-item .definition-container {
+    padding: 0px;
+}
+
+
+/* <div  class="modal-type ">
+                <div class="modal-content">
+                    <div class="type-item">
+                        <div>Edit noun of Hello</div>
+                        <div class = "type-id-container">
+                            <input type="text" value="13" class="type-id" readonly style ="display: none"/>
+                            <input type="text" value="0" class="position" readonly style ="display: none"/>
+                        </div>
+                        <div class = "type-label">
+                            <div class = "type-name">
+                                <label>Type: </label>
+                                    <select name="type" id="type">
+                                        <option  value="Adjective">Adjective</option>
+                                        <option  value="Adverb">Adverb</option>
+                                        <option value="Noun">Noun</option>
+                                        <option value="Prefix">Prefix</option>
+                                        <option selected value="Pronoun">Pronoun</option>
+                                        <option value="Exclamation">Exclamation</option>
+                                        <option value="Predeterminer">Predeterminer</option>
+                                    </select>             
+                            </div>
+                        </div>
+                        <div class="pronunciation-section">
+                            <div class="label-container">
+                                <label>Pronunciations: </label>
+                                <div class="btn-container">
+                                    <button id = "btn-add-pronunciation" class="btn btn-add">Add pronunciations</button>
+                                </div>
+                            </div>
+                            <div class = "pronunciation-container">
+                                <div class="pronunciation-item">
+                                    <input type ="hidden" class= "pronunciation-id" value ="25"/>
+                                    <input type ="hidden" class = "pronunciation-index" value ="0"/>
+                                    <div class="region">uk</div>
+                                    <div class="pronunciation">əˈbæn.dən</div>
+                                    <audio src="https://dictionary.cambridge.org/media/english/uk_pron/u/uka/uka__/uka____013.mp3" ></audio>
+                                    <i class="fa fa-volume-up"></i>
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                    </div>
+                                </div>
+                                <div class="pronunciation-item">
+                                    <input type ="hidden" class= "pronunciation-id" value ="25"/>
+                                    <input type ="hidden" class = "pronunciation-index" value ="0"/>
+                                    <div class="region">uk</div>
+                                    <div class="pronunciation">əˈbæn.dən</div>
+                                    <audio src="https://dictionary.cambridge.org/media/english/uk_pron/u/uka/uka__/uka____013.mp3" ></audio>
+                                    <i class="fa fa-volume-up"></i>
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="definition-section"> 
+                            <div class="label-container">
+                                <label>Definitions: </label>
+                                <div class="btn-container">
+                                    <button id = "btn-add-definition" class="btn btn-add">Add definition</button>
+                                </div>
+                            </div>
+                            <div class="definition-container">
+                                <div class="definition-item">
+                                            <input type ="hidden" class = "definition-index" value ="0"/>
+                                            <input type ="hidden" class = "definition-id" value ="19"/>
+                                            <div class="definition">to leave a place, thing, or person, usually for ever</div>
+                                            <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
+                                            <div class="btn-container">
+                                                <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                                <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                            </div>
+                                </div>
+                                <div class="definition-item">
+                                            <input type ="hidden" class = "definition-index" value ="0"/>
+                                            <input type ="hidden" class = "definition-id" value ="19"/>
+                                            <div class="definition">to leave a place, thing, or person, usually for ever</div>
+                                            <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
+                                            <div class="btn-container">
+                                                <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                                <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                            </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-container">
+                            <button id="save-type" class ="btn btn-save">Save Changes</button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div> */
+
