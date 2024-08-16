@@ -1,22 +1,23 @@
 import { getToken, getUserFromToken } from '../service/token.js';
 
+export const port = 8080;
 class HeaderComponent extends HTMLElement {
     constructor() {
         super();
         const template = document.createElement('template');
         template.innerHTML = `
-            <link rel="stylesheet" href="../css/header.css">
+            <link rel="stylesheet" href="../css/header.css"> 
             <div class="header">
-                <a href="home.html"><img src="../image/logo.png" alt="Logo" class="logo-header"></a>
+                <a href="home.html"><img src="../Image/logo.png" alt="Logo" class="logo-header"></a>
                 <!--NAVIGATION BAR-->
                 <ul class="navigation">
-                    <a href="index.html" title="Dictionary" class="navigation-item-selected">
+                    <a href="detailWord.html" title="Dictionary" data-path="detailWord.html">
                         <li>Dictionary</li>
                     </a>
-                    <a href="translate.html" title="Translate">
+                    <a href="translate.html" title="Translate" data-path="translate.html">
                         <li>Translate</li>
                     </a>
-                    <a href="chatAI.html" title="ChatAI">
+                    <a href="chatAI.html" title="ChatAI" data-path="chatAI.html">
                         <li>ChatAI</li>
                     </a>
                     <a href="https://www.messenger.com/t/318840944656645" title="Support">
@@ -50,7 +51,7 @@ class HeaderComponent extends HTMLElement {
             const menu = this.shadowRoot.querySelector('#user-dropdown-menu');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         });
-        this.shadowRoot.querySelector('#logout-button').addEventListener('click', async () => {
+        this.shadowRoot.querySelector('#logout-button').addEventListener('click', async() => {
             try {
                 const token = getToken();
                 await fetch('http://localhost:8080/api/v1/auth/logout', {
@@ -61,7 +62,7 @@ class HeaderComponent extends HTMLElement {
                     },
                     body: JSON.stringify({ token })
                 });
-                
+
                 localStorage.removeItem('token');
                 localStorage.removeItem('username');
                 window.location.href = 'login.html';
@@ -93,6 +94,15 @@ class HeaderComponent extends HTMLElement {
             registerButton.style.display = 'block';
             userMenu.style.display = 'none';
         }
+
+        // Áp dụng lớp `navigation-item-selected` dựa trên URL hiện tại
+        const currentPath = window.location.pathname.split('/').pop();
+        const navLinks = this.shadowRoot.querySelectorAll('.navigation a');
+        navLinks.forEach(link => {
+            if (link.getAttribute('data-path') === currentPath) {
+                link.classList.add('navigation-item-selected');
+            }
+        });
     }
 }
 

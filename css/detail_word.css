@@ -1,0 +1,140 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* Đảm bảo body chiếm ít nhất chiều cao của viewport */
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.container {
+    width: 70%;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+
+.section {
+    margin-bottom: 20px;
+    border-top: 1px solid #f1f1f1;
+    padding-top: 10px;
+}
+
+.audio-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.audio-icon {
+    cursor: pointer;
+    color: #007bff;
+}
+
+ul {
+    list-style-type: square;
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+    background: #dfe4e8;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+li:hover {
+    background: #73ace6;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#okButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#okButton:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-menu {
+    display: none;
+    /* Ẩn menu dropdown mặc định */
+    position: absolute;
+    /* Để menu xuất hiện ở vị trí chính xác */
+    background-color: rgb(236, 240, 223);
+    /* Màu nền của menu */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Đổ bóng cho menu */
+    z-index: 1;
+    /* Đảm bảo menu hiển thị trên các phần tử khác */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    /* Hiển thị menu khi hover vào dropdown */
+}
+
+.dropdown-item {
+    padding: 10px 15px;
+    /* Padding cho các item */
+    text-decoration: none;
+    /* Bỏ gạch chân */
+    color: black;
+    /* Màu chữ */
+    display: block;
+    /* Hiển thị các item theo dạng block */
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1;
+    /* Màu nền khi hover vào item */
+}

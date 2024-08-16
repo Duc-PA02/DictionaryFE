@@ -1,0 +1,201 @@
+.search-bar-container {
+    background-color: #002244;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: auto;
+}
+
+.search-bar {
+    width: 80%;
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.search-bar input[type="search"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 25px;
+    /* Bo tròn 4 góc ban đầu */
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: border-radius 0.3s;
+    background-color: #ffffff;
+    /* Màu nền trắng */
+    z-index: 1;
+}
+
+.search-bar input[type="search"].dropdown-visible {
+    border-bottom-right-radius: 0;
+    /* Bỏ bo tròn góc dưới khi dropdown hiển thị */
+    border-bottom-left-radius: 0;
+    border-bottom: none;
+    /* Xóa viền dưới để kết hợp tốt hơn với dropdown */
+}
+
+.search-bar button {
+    background-color: #FFCC00;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.search-icon {
+    height: 20px;
+    width: 20px;
+}
+
+#dropdown-container {
+    position: absolute;
+    top: calc(100%);
+    left: 0;
+    width: calc(100% - 50px);
+    /* Căn chỉnh chiều rộng của dropdown với input */
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+    /* Ẩn dropdown ban đầu */
+    border-radius: 0 0 25px 25px;
+    /* Bo tròn góc dưới */
+    border: 1px solid #ccc;
+    border-top: none;
+    /* Xóa viền trên để kết hợp tốt hơn với input */
+    overflow: hidden;
+}
+
+.dropdown-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #002244;
+    font-size: 16px;
+}
+
+.dropdown-list li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown-list li:hover,
+.autocomplete-active {
+    background-color: #f0f0f0;
+}
+
+.history-label {
+    border-top: 1px solid rgba(192, 208, 224, 0.5);
+    padding: 8px;
+    background-color: #ffffff;
+    color: #002244;
+    text-align: left;
+    font-weight: bold;
+    display: none;
+}
+
+.history-separator {
+    height: 1px;
+    background-color: #e0e0e0;
+    margin: 4px 0;
+    display: none;
+}
+
+
+/* MENU HAMBURGER */
+
+.menu-hamburger {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu-hamburger .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #fff;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+
+/* MENU XỔ XUỐNG */
+
+.menu {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    /* Ban đầu ẩn menu */
+    height: 100%;
+    background-color: #fff;
+    color: #000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1001;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    /* Hiệu ứng mượt mà */
+}
+
+.menu.show {
+    width: 25%;
+    /* Chiếm 1/4 màn hình khi hiển thị */
+}
+
+.menu-header {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-header img {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.menu-header .title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.menu ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.menu li {
+    margin: 15px 0;
+    padding: 0 20px;
+}
+
+.menu span {
+    color: rgb(6, 0, 69);
+}
+
+.menu a {
+    color: rgb(6, 0, 69);
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+    outline: none;
+}
+
+.menu a:hover {
+    background-color: #f4f7ff;
+    outline: none;
+}

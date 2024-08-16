@@ -1,0 +1,362 @@
+/* vnp */
+.card-list-topic-list{
+    min-height: 640px; /* Đảm bảo chiều cao tối thiểu cho danh sách */
+    margin-bottom: 20px; /* Khoảng cách giữa danh sách và phân trang */
+}
+.add-topic-container {
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    gap: 10px; /* Khoảng cách giữa các dòng */
+    width: 70%;
+}
+
+.input-search-group {
+    display: flex; /* Sắp xếp theo hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa input và button */
+    margin-bottom: 30px;
+}
+
+.add-topic-group {
+    display: flex; /* Sắp xếp theo hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa button và select */
+}
+
+.add-topic-container input {
+    flex: 1; /* Chiếm không gian còn lại */
+    padding: 8px; /* Padding cho input */
+    border: 1px solid #ccc; /* Đường viền cho input */
+    border-radius: 4px; /* Bo góc cho input */
+}
+
+.add-topic-container button {
+    padding: 8px 12px; /* Padding cho button */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc cho button */
+    background-color: #00a400; /* Màu nền cho button */
+    color: white; /* Màu chữ cho button */
+    cursor: pointer; /* Biểu tượng con trỏ khi hover */
+}
+
+.add-topic-container button:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+#topicSelection {
+    padding: 8px; /* Padding cho select */
+    border: 1px solid #ccc; /* Đường viền cho select */
+    border-radius: 4px; /* Bo góc cho select */
+    background-color: white; /* Màu nền cho select */
+    background-size: 12px; /* Kích thước hình ảnh mũi tên */
+}
+
+#topicSelection:focus {
+    border-color: #007bff; /* Đường viền khi focus */
+    outline: none; /* Bỏ outline mặc định */
+}
+.topic-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.topic-table th, .topic-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.topic-table th {
+    background-color: #4CAF50; /* Màu nền cho tiêu đề */
+    color: white; /* Màu chữ cho tiêu đề */
+}
+
+.topic-table tr:nth-child(even) {
+    background-color: #f2f2f2; /* Màu nền cho hàng chẵn */
+}
+
+.topic-table tr:hover {
+    background-color: #ddd; /* Màu nền khi di chuột qua hàng */
+}
+
+.topic-table td {
+    font-size: 14px; /* Kích thước chữ cho ô */
+}
+
+#detailTopicBtn {
+    margin: 5px;
+    padding: 8px 12px;
+    background-color: #09a037; /* Màu nền nút */
+    color: white; /* Màu chữ nút */
+    border: none;
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+#deleteTopicBtn {
+    margin: 5px;
+    padding: 8px 12px;
+    background-color: #e41515; /* Màu nền nút */
+    color: white; /* Màu chữ nút */
+    border: none;
+    border-radius: 4px; /* Bo góc */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+#detailTopicBtn:hover {
+    background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+}
+#deleteTopicBtn:hover {
+    background-color: #0056b3; /* Màu nền khi di chuột qua nút */
+}
+#detailTopicBtn:focus {
+    outline: none; /* Xóa viền khi nút được chọn */
+}
+#deleteTopicBtn:focus {
+    outline: none; /* Xóa viền khi nút được chọn */
+}
+#deleteBtnTopicWord {
+    cursor: pointer; /* Thay đổi con trỏ khi di chuột qua nút */
+    transition: transform 0.2s; /* Hiệu ứng chuyển động */
+}
+
+#deleteBtnTopicWord:hover {
+    transform: scale(1.4); /* Phóng to nút khi di chuột qua */
+}
+
+#deleteBtnTopicWord:active {
+    transform: scale(0.9); /* Nhỏ lại nút khi nhấn */
+}
+#add-topic-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#add-topic-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#add-topic-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#add-topic-form button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#add-topic-form button:hover {
+    opacity: 0.8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* detai topic */
+#topic-word {
+    width: 80%; 
+    /* max-width: 1000px;  */
+    margin: 20px auto; /* Căn giữa phần tử */
+    padding: 20px;
+    /* background-color: #f9f9f9;
+    border: 1px solid #ddd; */
+    /* border-radius: 10px; */
+}
+
+#topic-word h3 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+#editTopicBtn {
+    font-size: 15px; /* Kích thước chữ cho nút */
+    background: none; /* Bỏ nền */
+    border: none; /* Bỏ đường viền */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi hover */
+}
+#topic-word div {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #555;
+}
+
+#topic-word p {
+    margin: 5px 0;
+}
+
+#topic-word ul {
+    list-style-type: none; /* Bỏ dấu chấm đầu dòng */
+    padding: 0;
+}
+
+#topic-word li {
+    display: flex; /* Sử dụng flexbox để sắp xếp */
+    justify-content: space-between; /* Căn chỉnh giữa */
+    align-items: center; /* Căn giữa chiều dọc */
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+#topic-word li:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover */
+}
+
+#topic-word a {
+    text-decoration: none; /* Bỏ gạch chân cho liên kết */
+    color: #007bff; /* Màu chữ cho liên kết */
+}
+
+#topic-word a:hover {
+    text-decoration: underline; /* Gạch chân khi hover */
+}
+
+#topic-word img {
+    margin-left: 10px; /* Khoảng cách giữa từ và nút xóa */
+    cursor: pointer; /* Hiển thị con trỏ chuột khi hover */
+    width: 20px; /* Kích thước của icon */
+    height: 20px; /* Đảm bảo chiều cao bằng chiều rộng */
+}
+#topic-word li:last-child {
+    border-bottom: none; /* Không có đường viền cho item cuối */
+}
+#edit-topic-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#edit-topic-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#edit-topic-form input {
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#edit-topic-form button {
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#edit-topic-form button:hover {
+    opacity: 0.8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.add-topic-word-container {
+    display: flex;
+    flex-direction: column; /* Sắp xếp theo cột */
+    gap: 10px; /* Khoảng cách giữa các dòng */
+    width: 70%;
+}
+
+.input-search-group {
+    display: flex; /* Sắp xếp theo hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa input và button */
+    margin-bottom: 30px;
+}
+
+.add-topic-word-group {
+    display: flex; /* Sắp xếp theo hàng */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    gap: 10px; /* Khoảng cách giữa button và select */
+}
+
+.add-topic-word-container input {
+    flex: 1; /* Chiếm không gian còn lại */
+    padding: 8px; /* Padding cho input */
+    border: 1px solid #ccc; /* Đường viền cho input */
+    border-radius: 4px; /* Bo góc cho input */
+}
+
+.add-topic-word-container button {
+    padding: 8px 12px; /* Padding cho button */
+    border: none; /* Không có đường viền */
+    border-radius: 4px; /* Bo góc cho button */
+    background-color: #00a400; /* Màu nền cho button */
+    color: white; /* Màu chữ cho button */
+    cursor: pointer; /* Biểu tượng con trỏ khi hover */
+}
+
+.add-topic-word-container button:hover {
+    background-color: #0056b3; /* Màu nền khi hover */
+}
+#topicWordSelection {
+    padding: 8px; /* Padding cho select */
+    border: 1px solid #ccc; /* Đường viền cho select */
+    border-radius: 4px; /* Bo góc cho select */
+    background-color: white; /* Màu nền cho select */
+    background-size: 12px; /* Kích thước hình ảnh mũi tên */
+    margin-left: 20px;
+}
+
+#topicWordordSelection:focus {
+    border-color: #007bff; /* Đường viền khi focus */
+    outline: none; /* Bỏ outline mặc định */
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative; /* Đặt vị trí tương đối */
+}
+
+.pagination button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #08a343;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #d0d0d0;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #0056b3;
+}
+
+.modal-content-1 {
+    background-color: #fefefe;
+    margin: 10% auto; /* 10% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 1000px; /* Limit the width for larger screens */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.3s;
+    color: #000;
+}
