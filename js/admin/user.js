@@ -107,7 +107,10 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
 
     // Populate user detail content
     userDetailContent.innerHTML = `
+    <div class="user-avatar-container">
         <img src="${user.avatar || 'https://via.placeholder.com/100'}" alt="Avatar" class="user-avatar">
+    </div>
+    <div class="user-info-container">
         <p><strong>Username:</strong> ${user.username}</p>
         <p><strong>Email:</strong> ${user.email}</p>
         <p><strong>Full Name:</strong> ${user.fullname}</p>
@@ -122,7 +125,9 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
         </p>
         <p><strong>Created At:</strong> ${formatDate(user.createdAt)}</p>
         <p><strong>Updated At:</strong> ${formatDate(user.updatedAt)}</p>
-        <h3>Roles:</h3>
+    </div>
+    <div class="user-roles-container">
+        <h3>Roles</h3>
         <table id="role-table">
             <thead>
                 <tr>
@@ -135,25 +140,30 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
                 ${renderRoleTableRows(allRoles, user.roles)}
             </tbody>
         </table>
-        <div id="role-permission-details" style="display:none;">
-            <h3>Role Permissions</h3>
-            <div id="role-permission-list"></div>
-        </div>
-        <h3>Permissions:</h3>
+    </div>
+    <div id="role-permission-details" style="display:none;">
+        <h3>Role Permissions</h3>
+        <div id="role-permission-list"></div>
+    </div>
+    <div class="user-permissions-container">
+        <h3>Permissions</h3>
         <div id="permission-list">${renderPermissionsWithPagination(allPermissions, user.permissions)}</div>
         <div id="pagination-controls">
             <button id="prev-permission-page" class="pagination-button">Previous</button>
             <span id="current-permission-page"></span>
             <button id="next-permission-page" class="pagination-button">Next</button>
         </div>
+    </div>
+    <div class="update-button-container">
         <button id="update-user" class="update-button">Update</button>
+    </div>
     `;
+
 
     currentPermissionPage = 0;
 
     // Render permissions và cập nhật thông tin phân trang
     if (allPermissions && allPermissions.content) {
-        // document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(allPermissions, user.permissions);
         updatePaginationInfo(allPermissions);
     } else {
         console.error('No permissions data available');
@@ -191,6 +201,25 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
             }
         });
     });   
+
+    // Add event listener for pagination controls
+    document.getElementById('prev-permission-page').addEventListener('click', async () => {
+        if (currentPermissionPage > 0) {
+            currentPermissionPage--;
+            const newPermissionsData = await fetchAllPermissions(currentPermissionPage);
+            document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(newPermissionsData, user.permissions);
+            updatePaginationInfo(newPermissionsData);
+        }
+    });
+
+    document.getElementById('next-permission-page').addEventListener('click', async () => {
+        if (currentPermissionPage < allPermissions.totalPages - 1) {
+            currentPermissionPage++;
+            const newPermissionsData = await fetchAllPermissions(currentPermissionPage);
+            document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(newPermissionsData, user.permissions);
+            updatePaginationInfo(newPermissionsData);
+        }
+    });
 }
 
 
