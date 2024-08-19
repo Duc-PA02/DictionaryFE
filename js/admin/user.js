@@ -1,6 +1,8 @@
 import { getToken } from '../../service/token.js';
 import { loadPermissions } from './permission.js';
 
+let currentPermissionPage = 0;
+
 export async function loadUsers(page = 0, sort = 'username', direction = 'asc') {
     const token = getToken();
     const myHeaders = new Headers();
@@ -75,7 +77,7 @@ export async function showUserDetail(userId) {
         if (result.status === "OK") {
             const user = result.data;
             const rolesData = await loadRoles(); // Load all roles
-            const permissionsData = await fetchAllPermissions(); // Load all permissions
+            const permissionsData = await fetchAllPermissions(currentPermissionPage); // Load all permissions
             
             displayUserDetailModal(user, rolesData.data, permissionsData);
         } else {
@@ -138,14 +140,24 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
             <div id="role-permission-list"></div>
         </div>
         <h3>Permissions:</h3>
-        <div id="permission-list">${renderPermissionCheckboxes(allPermissions, user.permissions)}</div>
+        <div id="permission-list">${renderPermissionsWithPagination(allPermissions, user.permissions)}</div>
         <div id="pagination-controls">
-            <button id="prev-page" class="pagination-button">Previous</button>
-            <span id="current-page">1</span>
-            <button id="next-page" class="pagination-button">Next</button>
+            <button id="prev-permission-page" class="pagination-button">Previous</button>
+            <span id="current-permission-page"></span>
+            <button id="next-permission-page" class="pagination-button">Next</button>
         </div>
         <button id="update-user" class="update-button">Update</button>
     `;
+
+    currentPermissionPage = 0;
+
+    // Render permissions và cập nhật thông tin phân trang
+    if (allPermissions && allPermissions.content) {
+        // document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(allPermissions, user.permissions);
+        updatePaginationInfo(allPermissions);
+    } else {
+        console.error('No permissions data available');
+    }
 
     // Add event listener for back button
     document.getElementById('back-to-users').addEventListener('click', function(e) {
@@ -178,48 +190,9 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
                 console.error('Role not found.');
             }
         });
-    });
-
-
-    let currentPage = 0;
-
-    async function loadPermissionsAndDisplay(page) {
-        try {
-            const permissionsData = await fetchAllPermissions(page);
-            const permissionList = document.getElementById('permission-list');
-            permissionList.innerHTML = renderPermissionCheckboxes(permissionsData, user.permissions);
-            updatePaginationControls(permissionsData.totalPages, page);
-        } catch (error) {
-            console.error('Error loading permissions:', error);
-            document.getElementById('permission-list').innerHTML = 'Failed to load permissions';
-        }
-    }
-
-    function updatePaginationControls(totalPages, currentPage) {
-        const prevButton = document.getElementById('prev-page');
-        const nextButton = document.getElementById('next-page');
-        const currentPageElement = document.getElementById('current-page');
-
-        currentPageElement.textContent = currentPage + 1;
-        prevButton.disabled = currentPage === 0;
-        nextButton.disabled = currentPage === totalPages - 1;
-    }
-
-    document.getElementById('prev-page').addEventListener('click', function() {
-        if (currentPage > 0) {
-            currentPage--;
-            loadPermissionsAndDisplay(currentPage);
-        }
-    });
-
-    document.getElementById('next-page').addEventListener('click', function() {
-        currentPage++;
-        loadPermissionsAndDisplay(currentPage);
-    });
-
-    // Khởi tạo ban đầu
-    loadPermissionsAndDisplay(currentPage);
+    });   
 }
+
 
 // Function to render checkboxes for roles
 function renderRoleTableRows(allRoles, userRoles) {
@@ -240,25 +213,36 @@ function renderRoleTableRows(allRoles, userRoles) {
 }
 
 // Function to render checkboxes for permissions
-function renderPermissionCheckboxes(permissions, userPermissions) {
-    if (!permissions || !permissions.content || !Array.isArray(permissions.content)) {
+function renderPermissionsWithPagination(permissionsData, userPermissions) {
+    if (!permissionsData || !Array.isArray(permissionsData.content)) {
         console.error('Invalid permissions data');
         return '';
     }
 
-    userPermissions = userPermissions || []; // Gán giá trị mặc định là một mảng rỗng nếu userPermissions không tồn tại
+    const userPermissionIds = userPermissions.map(p => p.id);
 
-    return permissions.content.map(permission => {
-        const checked = userPermissions.some(userPermission => userPermission.id === permission.id) ? 'checked' : '';
-        return `
-            <div class="permission-item">
-                <label>
-                    <input type="checkbox" value="${permission.id}" ${checked}>
-                    ${permission.name}
-                </label>
-            </div>
-        `;
-    }).join('');
+    return permissionsData.content.map(permission => `
+        <div class="permission-item">
+            <label>
+                <input type="checkbox" value="${permission.id}" ${userPermissionIds.includes(permission.id) ? 'checked' : ''}>
+                ${permission.name}
+            </label>
+        </div>
+    `).join('');
+}
+
+function updatePaginationInfo(permissionsData) {
+    const currentPageSpan = document.getElementById('current-permission-page');
+    const prevButton = document.getElementById('prev-permission-page');
+    const nextButton = document.getElementById('next-permission-page');
+
+    if (currentPageSpan && prevButton && nextButton) {
+        currentPageSpan.textContent = currentPermissionPage + 1; // Hiển thị từ 1
+        prevButton.disabled = currentPermissionPage === 0;
+        nextButton.disabled = currentPermissionPage === permissionsData.totalPages - 1;
+    } else {
+        console.error('Pagination elements not found');
+    }
 }
 
 export async function loadRoles() {
