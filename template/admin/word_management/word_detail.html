@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictinary</title>
+    <link rel="stylesheet" href="../../../css/admin/dashboard.css">
+    <link rel="stylesheet" href="../../../css/admin/word_management/add_word.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
+    
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2></h2>
+        </div>
+        <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
+            <li><a href="word_management.html"><i class="fas fa-user"></i> Word Management</a></li>
+            <li><a href="#settings"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="header">
+            <div class="menu">
+                <span>Welcome, !</span>
+            </div>
+        </div>
+        <div class="content">
+            <div id="word-label" class="normal"> 
+                 <div class="btn-container">
+                    <button class="btn btn-delete" id="btn-delete-word"><i class="fas fa-trash-alt"></i></button>
+                    <button class="btn btn-save" id="btn-save-word"><i class="fas fa-save"></i></button>
+                    <button class="btn btn-edit" id="btn-edit-word"><i class="fas fa-edit"></i></button>
+                        </div>
+                
+                <div id="word-name-container">
+                    <div class = "word-name">Hello</div>
+                    <input class="word-name" placeholder="Word name" value="Hello">
+                    <div id="word-name-error" class="error-message"></div>
+                </div>
+            </div> 
+
+            <!-- class = "edit" -->
+            <div id="type-section" >
+                <!-- <div class="type-label">
+                    <span><strong>Types of word:</strong></span>
+                </div> -->
+                <div id="type-section-error" class="error-message"></div>
+                <div id="type-container">
+                    <div class="type-item ">
+                        <div class = "type-id-container">
+                            <input type="text" value="${type.id}" class="type-id" readonly style ="display: none"/>
+                            <input type="text" value="${index}" class="position" readonly style ="display: none"/>
+                        </div>
+                        <div class = "type-label">
+                            <div class = "type-name">
+                                <strong><span> Noun</span></strong>                    
+                            </div>
+                            <div class = "btn-container">
+                                <button class = "btn btn-delete"  >Delete</button>
+                                <button class = "btn btn-edit" >Edit</button>
+                               
+                            </div>
+                        </div>
+                        <div class="pronunciation-section">
+                            <!-- <div>Pronunciations:</div> -->
+                            <div class = "pronunciation-container">
+                                <div class="pronunciation-item edit" >
+                                    <input type ="hidden" class= "pronunciation-id" value ="${pronunciation.id}"/>
+                                    <input type ="hidden" class = "pronunciation-index" value ="${index}"/>
+                                    <input type="text" placeholder="region" class="region" value="uk"/>
+                                    <input type="text" placeholder="pronunciation" class="pronunciation" value = "Abando"/>
+                                    <input type="text" placeholder="audio" class = "audio" value="djkabjagag"/>
+                                    <!-- <audio src="${pronunciation.audio}" ></audio> -->
+                                    <i class="fa fa-volume-up"></i>
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete btn-delete-pronunciation"   >Delete</button>
+                                        <button class = "btn btn-edit btn-edit-pronunciation"  >Edit</button>
+                                        <button class = "btn btn-save btn-save-pronunciation" >Save</button>
+                                    </div>
+                                </div>
+                                <div class="pronunciation-item active">
+                                    <input type ="hidden" class= "pronunciation-id" value ="${pronunciation.id}"/>
+                                    <input type ="hidden" class = "pronunciation-index" value ="${index}"/>
+                                    <div   class="region" value="uk">Uk</div>
+                                    <div class="pronunciation">Abando</div>
+                                    <i class="fa fa-volume-up"></i>
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete btn-delete-pronunciation"   >Delete</button>
+                                        <button class = "btn btn-edit btn-edit-pronunciation"  >Edit</button>
+                                        <button class = "btn btn-save btn-save-pronunciation" >Save</button>
+                                    </div>
+                                </div>
+                                <div class="pronunciation-item">
+                                    <input type ="hidden" class= "pronunciation-id" value ="${pronunciation.id}"/>
+                                    <input type ="hidden" class = "pronunciation-index" value ="${index}"/>
+                                    <div type="text" placeholder="region" class="region" value="uk">Uk</div>
+                                    <div type="text" placeholder="pronunciation" class="pronunciation">Abando</div>
+                                    <!-- <audio src="${pronunciation.audio}" ></audio> -->
+                                    <i class="fa fa-volume-up"></i>
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete btn-delete-pronunciation"   >Delete</button>
+                                        <button class = "btn btn-edit btn-edit-pronunciation"  >Edit</button>
+                                        <button class = "btn btn-save btn-save-pronunciation" >Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="definition-section">
+                            <ul class="definition-container ">
+                                <div class="definition-item edit">
+                                    <input type ="hidden" class = "definition-index" value ="0"/>
+                                    <input type ="hidden" class = "definition-id" value ="19"/>
+                                    <div class="definition">to leave a place, thing, or person, usually for ever</div>
+                                    <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                        <button class = "btn btn-save" id="btn-save-pronunciation"  >Save</button>
+                                    </div>
+                                </div>
+                                <li class="definition-item active">
+                                    <input type ="hidden" class = "definition-index" value ="${index}"/>
+                                    <input type ="hidden" class = "definition-id" value ="${definition.id}"/>
+                                    <div class="definition">to leave a place, thing, or person, usually for ever</div>
+                                    <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                        <button class = "btn btn-save" id="btn-save-pronunciation"  >Save</button>
+                                    </div>    
+                                </li>
+                                <li class="definition-item">
+                                    <input type ="hidden" class = "definition-index" value ="${index}"/>
+                                    <input type ="hidden" class = "definition-id" value ="${definition.id}"/>
+                                    <div class="definition">to leave a place, thing, or person, usually for ever</div>
+                                    <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
+                                    <div class="btn-container">
+                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
+                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
+                                        <button class = "btn btn-save" id="btn-save-pronunciation"  >Save</button>* 
+                                    </div>    
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="type-item">
+                        <div class = "type-id-container">
+                            <input type="text" value="${type.id}" class="type-id" readonly style ="display: none"/>
+                            <input type="text" value="${index}" class="position" readonly style ="display: none"/>
+                        </div>
+                        <div class = "type-label">
+                            <div class = "type-name">
+                                <strong><span> Noun</span></strong>                    
+                            </div>
+                            <div class = "btn-container">
+                                <button class = "btn btn-edit" >Edit</button>
+                                <button class = "btn btn-delete"  >Delete</button>
+                            </div>
+                        </div>
+                    </div>    
+                </div>
+                <div id = "btn-add-type-container">
+                    <button class = "btn" id="btn-add-type">Add more type</button>
+                </div>
+            </div>
+
+            <div class="modal-type">
+
+            </div>
+
+
+        
+        
+            <div id="antonym-section">
+                <div class="antonym-label">
+                    <span><strong>Antonyms:</strong></span>
+                </div>
+                <div class="antonym-search">
+                    <input type="text" placeholder="search antonynm" id = "antonym-search">
+                    <ul class="result-search">
+                            
+                    </ul>
+                </div>
+                <div class="antonym-container">
+                    <div class="antonym-item">
+                        <input type="hidden" class="antoynm-id" value="1">
+                        <input type="hidden" class="word-id"  value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">green</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                    <div class="antonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">Playholder</div>
+                    </div>
+                </div>
+            </div>
+            <div id="synonym-section">
+                <div class="synonym-label">
+                    <span><strong>Synonyms:</strong></span>
+                </div>
+                <div class="synonym-search">
+                    <input type="text" placeholder="search synonym" id = "synonym-search">
+                    <ul class="result-search">
+                            
+                    </ul>
+                </div>
+                <div class="synonym-container">
+                    <div class="synonym-item">
+                        <input type="hidden" class="synonym-id" value="1">
+                        <input type="hidden" class="word-id"  value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item active">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">A</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                    <div class="synonym-item">
+                        <input type="hidden" value="1">
+                        <div class="name">play</div>
+                    </div>
+                </div>
+        
+        </div>
+    </div>
+    <!-- <script src="../../../js/dashboard.js"></script> -->
+    <script src="../../../js/admin/word_management/add-word.js"></script>
+</body>
+</html>
