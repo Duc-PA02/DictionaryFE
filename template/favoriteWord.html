@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link type="text/css" href="../css/favorite_word.css" rel="stylesheet" />
+    <link type="text/css" href="../css/index.css" rel="stylesheet" />
+
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+    <script src="../js/favoriteWord.js" type="module"></script>
+</head>
+
+<body>
+    <!-- Vị trí header -->
+    <header-component></header-component>
+
+    <!-- Vị trí search-bar -->
+    <!-- <search-bar-component></search-bar-component> -->
+    <!--SEARCH BAR-->
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <input type="search" id="searchInput" placeholder="Search English">
+        </div>
+    </div>
+    <!--END SEARCH BAR-->
+
+    <!-- Nội dung trang -->
+    <div id="content" class="content">
+        <!-- No search form -->
+        <div class="container">
+            <button onclick="location.href='game.html'" id="btnGame" class="btnGame">Game</button>
+            <div id="favoriteWordsContainer"></div>
+        </div>
+    </div>
+
+    <!-- Vị trí footer -->
+    <footer-component></footer-component>
+    <script type="module">
+        
+    </script>
+</body>
+
+</html>

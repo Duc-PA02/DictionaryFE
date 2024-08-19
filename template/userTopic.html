@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Quản lý sản phẩm</title>
+    <link type="text/css" href="../css/index.css" rel="stylesheet" />
+    <link type="text/css" href="../css/userTopic.css" rel="stylesheet" />
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+    <script src="../js/userTopic.js" type="module"></script>
+</head>
+
+<body>
+    <header-component></header-component>
+
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <input type="search" id="searchInput" placeholder="Search English">
+        </div>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <h1>Topic</h1>
+            <div id="messageDiv" style="color: red; margin-bottom: 20px;"></div>
+            <div class="sort-container">
+                <h4 id="totalTopics">Total: 0</h4>
+                <select id="sortSelect" onchange="sortTopics()">
+                    <option value="date_ascending">date_ascending</option>
+                    <option value="date_descending">date_descending</option>
+                    <option value="dictionary_asc">dictionary_ascending</option>
+                    <option value="dictionary_desc">dictionary_descending</option>
+                </select>
+            </div>
+            <div id="topicsContainer"></div>
+        </div>
+    </div>
+
+    <div class="pagination">
+        <!-- Pagination buttons will be populated here -->
+    </div>
+
+    <footer-component></footer-component>
+</body>
+</html>

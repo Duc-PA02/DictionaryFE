@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/admin/dashboard.css">
+    <link rel="stylesheet" href="../css/admin/topic.css">
+    <link rel="stylesheet" href="../css/admin/searchAddToTopic.css">
     <link rel="stylesheet" href="../css/admin/user.css">
     <link rel="stylesheet" href="../css/admin/permission.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -19,6 +21,7 @@
             <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="#user"><i class="fas fa-user"></i> User</a></li>
             <li><a href="#api"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#topic"><i class="fa-solid fa-hat-cowboy"></i>Topic</a></li>
             <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
@@ -46,6 +49,58 @@
             <div id="permission-list" class="card-list" style="display:none;">
                 <!-- Permission list will be populated here -->
             </div>
+
+            <!-- vnp -->
+            <div id="topic-list" class="card-list-topic-list" style="display: none; color: black;">
+            </div>
+
+            <div id="topic-word" class="card-list" style="display: none; color: black;"></div>
+            <div id="add-topic-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Add New Topic</h2>
+                    <form id="add-topic-form">
+                        <label for="topic-name">Name</label>
+                        <input type="text" id="topic-name" name="name" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="edit-topic-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h2>Add New Topic</h2>
+                    <form id="edit-topic-form">
+                        <label for="topic-name-edit">Name</label>
+                        <input type="text" id="topic-name-edit" name="name" required>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div id="add-topic-word-modal" class="modal">
+                <div class="modal-content-1">
+                    <span class="close-btn">&times;</span>
+                    <div class="search-bar-container">
+                        <div class="search-bar">
+                            <input type="search" id="searchWordAddTopic" placeholder="Search English">
+                            <button type="button" class="search-button" id="searchButton">
+                                <img src="../Image/search-icon.png" alt="Search" class="search-icon">
+                            </button>
+                        </div>
+                    </div>
+                    <!--END SEARCH BAR-->
+                    <div id="contentSearchAddTopic" class="contentSearchAddTopic">
+                    </div>
+                </div>
+            </div>
+            <div id="messageModal" class="messageModal">
+                <div class="messageModalContent">
+                    <span class="closeMessageModal" onclick="closeModal()">&times;</span>
+                    <p id="modalMessage"></p>
+                    <button id="okButton" onclick="closeModal()">OK</button>
+                </div>
+            </div>
+            <!-- end vnp -->
             <div id="add-permission-modal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn">&times;</span>
@@ -81,6 +136,8 @@
             </div>
         </div>
     </div>
+    <script type="module" src="../js/admin/topic.js"></script>
+    
     <script type="module" src="../js/admin/dashboard.js"></script>
 </body>
 </html>

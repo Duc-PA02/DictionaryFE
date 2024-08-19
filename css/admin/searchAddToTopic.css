@@ -1,0 +1,131 @@
+.search-bar-container {
+    background-color: #002244;
+    /* Darker blue background */
+    padding: 10px;
+    /* Padding around the search bar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search-bar {
+    width: 80%;
+    max-width: 700px;
+    /* Increased width for the search bar */
+    display: flex;
+    align-items: center;
+}
+
+.search-bar input[type="search"] {
+    width: calc(100% - 50px);
+    /* Adjust width to accommodate button */
+    padding: 12px;
+    /* Increased padding */
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    /* Larger font size */
+    outline: none;
+}
+
+.search-bar button {
+    background-color: #FFCC00;
+    border: none;
+    border-radius: 50%;
+    /* Make button circular */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.search-icon {
+    height: 20px;
+    width: 20px;
+}
+
+.contentSearchAddTopic {
+    margin-top: 20px;
+    overflow: hidden;
+    padding: 5px;
+    min-height: 350px;
+    flex: 1;
+}
+
+.contentSearchAddTopic ul {
+    list-style-type: square;
+    padding: 0;
+}
+.contentSearchAddTopic li {
+    list-style-type: none;
+    background: #dfe4e8;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+.contentSearchAddTopic li:hover {
+    background: #73ace6;
+}
+.messageModal {
+    display: none; /* Ẩn modal mặc định */
+    position: fixed; /* Đặt modal cố định */
+    z-index: 1000; /* Đảm bảo modal nằm trên cùng */
+    left: 0;
+    top: 0;
+    width: 100%; /* Chiếm toàn bộ chiều rộng */
+    height: 100%; /* Chiếm toàn bộ chiều cao */
+    background-color: rgba(0, 0, 0, 0.6); /* Nền mờ đục */
+}
+
+.messageModalContent {
+    background-color: white; /* Nền trắng cho nội dung modal */
+    margin: 15% auto; /* Căn giữa modal */
+    padding: 20px;
+    border: 1px solid #888; /* Đường viền xung quanh */
+    width: 80%; /* Chiều rộng modal */
+    max-width: 500px; /* Chiều rộng tối đa */
+    border-radius: 8px; /* Bo góc */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Đổ bóng */
+}
+
+.closeMessageModal {
+    color: #aaa; /* Màu chữ cho nút đóng */
+    float: right; /* Đặt nút đóng ở góc trên bên phải */
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer; /* Hiển thị con trỏ tay khi di chuột */
+}
+
+.closeMessageModal:hover,
+.closeMessageModal:focus {
+    color: black; /* Đổi màu khi di chuột qua */
+    text-decoration: none; /* Không có gạch chân */
+}
+
+#modalMessage {
+    color: black; /* Màu chữ cho thông điệp */
+    margin: 20px 0; /* Khoảng cách trên và dưới */
+    text-align: center; /* Căn giữa chữ */
+}
+
+#okButton {
+    background-color: #4CAF50; /* Màu nền cho nút OK */
+    color: white; /* Màu chữ cho nút OK */
+    border: none; /* Không có đường viền */
+    padding: 10px 20px; /* Khoảng cách bên trong */
+    text-align: center; /* Căn giữa chữ */
+    text-decoration: none; /* Không có gạch chân */
+    display: block; /* Hiển thị như một khối để dễ căn giữa */
+    font-size: 16px; /* Kích thước chữ */
+    margin: 20px auto 0; /* Căn giữa với khoảng cách trên */
+    border-radius: 5px; /* Bo góc cho nút */
+    cursor: pointer; /* Hiển thị con trỏ tay khi di chuột */
+    width: 100px; /* Chiều rộng nút */
+}
+
+#okButton:hover {
+    background-color: #45a049; /* Đổi màu khi di chuột qua */
+}
