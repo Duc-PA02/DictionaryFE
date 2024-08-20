@@ -1,7 +1,4 @@
 import { getToken } from '../../service/token.js';
-import { loadPermissions } from './permission.js';
-
-let currentPermissionPage = 0;
 
 export async function loadUsers(page = 0, sort = 'username', direction = 'asc') {
     const token = getToken();
@@ -77,7 +74,7 @@ export async function showUserDetail(userId) {
         if (result.status === "OK") {
             const user = result.data;
             const rolesData = await loadRoles(); // Load all roles
-            const permissionsData = await fetchAllPermissions(currentPermissionPage); // Load all permissions
+            const permissionsData = await fetchAllPermissions(); // Load all permissions
             
             displayUserDetailModal(user, rolesData.data, permissionsData);
         } else {
@@ -147,27 +144,12 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
     </div>
     <div class="user-permissions-container">
         <h3>Permissions</h3>
-        <div id="permission-list">${renderPermissionsWithPagination(allPermissions, user.permissions)}</div>
-        <div id="pagination-controls">
-            <button id="prev-permission-page" class="pagination-button">Previous</button>
-            <span id="current-permission-page"></span>
-            <button id="next-permission-page" class="pagination-button">Next</button>
-        </div>
+        <div id="permission-list">${renderPermissions(allPermissions, user.permissions)}</div>
     </div>
     <div class="update-button-container">
         <button id="update-user" class="update-button">Update</button>
     </div>
     `;
-
-
-    currentPermissionPage = 0;
-
-    // Render permissions và cập nhật thông tin phân trang
-    if (allPermissions && allPermissions.content) {
-        updatePaginationInfo(allPermissions);
-    } else {
-        console.error('No permissions data available');
-    }
 
     // Add event listener for back button
     document.getElementById('back-to-users').addEventListener('click', function(e) {
@@ -201,25 +183,6 @@ export function displayUserDetailModal(user, allRoles, allPermissions) {
             }
         });
     });   
-
-    // Add event listener for pagination controls
-    document.getElementById('prev-permission-page').addEventListener('click', async () => {
-        if (currentPermissionPage > 0) {
-            currentPermissionPage--;
-            const newPermissionsData = await fetchAllPermissions(currentPermissionPage);
-            document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(newPermissionsData, user.permissions);
-            updatePaginationInfo(newPermissionsData);
-        }
-    });
-
-    document.getElementById('next-permission-page').addEventListener('click', async () => {
-        if (currentPermissionPage < allPermissions.totalPages - 1) {
-            currentPermissionPage++;
-            const newPermissionsData = await fetchAllPermissions(currentPermissionPage);
-            document.getElementById('permission-list').innerHTML = renderPermissionsWithPagination(newPermissionsData, user.permissions);
-            updatePaginationInfo(newPermissionsData);
-        }
-    });
 }
 
 
@@ -242,15 +205,10 @@ function renderRoleTableRows(allRoles, userRoles) {
 }
 
 // Function to render checkboxes for permissions
-function renderPermissionsWithPagination(permissionsData, userPermissions) {
-    if (!permissionsData || !Array.isArray(permissionsData.content)) {
-        console.error('Invalid permissions data');
-        return '';
-    }
-
+function renderPermissions(allPermissions, userPermissions) {
     const userPermissionIds = userPermissions.map(p => p.id);
 
-    return permissionsData.content.map(permission => `
+    return allPermissions.map(permission => `
         <div class="permission-item">
             <label>
                 <input type="checkbox" value="${permission.id}" ${userPermissionIds.includes(permission.id) ? 'checked' : ''}>
@@ -258,20 +216,6 @@ function renderPermissionsWithPagination(permissionsData, userPermissions) {
             </label>
         </div>
     `).join('');
-}
-
-function updatePaginationInfo(permissionsData) {
-    const currentPageSpan = document.getElementById('current-permission-page');
-    const prevButton = document.getElementById('prev-permission-page');
-    const nextButton = document.getElementById('next-permission-page');
-
-    if (currentPageSpan && prevButton && nextButton) {
-        currentPageSpan.textContent = currentPermissionPage + 1; // Hiển thị từ 1
-        prevButton.disabled = currentPermissionPage === 0;
-        nextButton.disabled = currentPermissionPage === permissionsData.totalPages - 1;
-    } else {
-        console.error('Pagination elements not found');
-    }
 }
 
 export async function loadRoles() {
@@ -302,18 +246,24 @@ export async function loadRoles() {
     }
 }
 
-export async function fetchAllPermissions(page = 0) {
+export async function fetchAllPermissions() {
+    const token = getToken();
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+    };
+
     try {
-        const response = await loadPermissions(page); // Truyền `page` vào hàm loadPermissions
-        const permissionsData = response.data; // Truy cập trường data
+        const response = await fetch("http://localhost:8080/api/v1/admin/permission/list", requestOptions);
+        const permissionsData = await response.json();
         console.log('Permissions Data:', permissionsData);
 
-        // Kiểm tra xem permissionsData có cấu trúc như mong đợi không
-        if (permissionsData && permissionsData.content && Array.isArray(permissionsData.content)) {
-            return {
-                content: permissionsData.content,
-                totalPages: permissionsData.totalPages || 1 // Giả định ít nhất một trang
-            };
+        if (permissionsData.status === "OK" && Array.isArray(permissionsData.data)) {
+            return permissionsData.data;
         } else {
             throw new Error('Permissions data is not in the expected format');
         }
