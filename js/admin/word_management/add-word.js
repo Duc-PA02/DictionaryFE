@@ -247,7 +247,7 @@ function renderTypeItemNormal(type, itemState){
 
     let btnSaveTypeContainer = document.createElement("div");
     btnSaveTypeContainer.setAttribute("class", "btn-container");
-    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save" >Save Changes</button>`
+    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save" >Ok</button>`
     
     typeElement.appendChild(btnSaveTypeContainer);
    //click save type
@@ -281,7 +281,7 @@ function renderTypeItemActive(type, itemState){
 
     let btnSaveTypeContainer = document.createElement("div");
     btnSaveTypeContainer.setAttribute("class", "btn-container");
-    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save"> Save Changes</button>`
+    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save">Ok</button>`
     //click save type
     typeElement.appendChild(btnSaveTypeContainer);
     return typeElement;
@@ -317,7 +317,7 @@ function renderTypeItemEdit(type, itemState){
     typeElement.querySelector(".type-label").appendChild(renderSelectType(type))
     let btnSaveTypeContainer = document.createElement("div");
     btnSaveTypeContainer.setAttribute("class", "btn-container");
-    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save">Save Changes</button>`
+    btnSaveTypeContainer.innerHTML = `<button class="save-type btn btn-save">Ok</button>`
     
     typeElement.appendChild(btnSaveTypeContainer);
     return typeElement;
@@ -370,8 +370,8 @@ function setUpTypeItemListener(type, typeItemElement){
     })
     typeItemElement.querySelector(".save-type").addEventListener("click", function(event){
         // renderModalType(type, states[2]);
-        alert("save type");
-        alert(modalType.querySelectorAll(".pronunciation-item.edit"));
+        // alert("save type");
+        // alert(modalType.querySelectorAll(".pronunciation-item.edit"));
         if(modalType.querySelectorAll(".pronunciation-item.edit").length > 0){
             alert("Vui lòng lưu các thay đổi của pronunciation");
         }
@@ -869,7 +869,7 @@ function renderAntonymContainer(){
     antonymContainer.innerHTML = htmls;
     antonymContainer.querySelectorAll(".antonym-item").forEach(antonym => {
         antonym.addEventListener('click', function(event) {
-            var url = `http://127.0.0.1:5500/Dict-frontend/template/admin/word_management/word_detail.html?id=${antonym.querySelector(".word-id").value}`;
+            var url = `http://127.0.0.1:5501/template/admin/word_management/word_detail.html?id=${antonym.querySelector(".word-id").value}`;
             window.location.href = url;
         });
 
@@ -992,7 +992,7 @@ function renderSynonymsContainer(){
     synonymContainer.innerHTML = htmls;
     synonymContainer.querySelectorAll(".synonym-item").forEach(synonym => {
         synonym.addEventListener('click', function(event) {
-            var url = `http://127.0.0.1:5500/Dict-frontend/template/admin/word_management/word_detail.html?id=${synonym.querySelector(".word-id").value}`;
+            var url = `http://127.0.0.1:5501/template/admin/word_management/word_detail.html?id=${synonym.querySelector(".word-id").value}`;
             window.location.href = url;
         });
     });
