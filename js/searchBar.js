@@ -24,6 +24,7 @@ class SearchBarComponent extends HTMLElement {
                     <ul>
                         <li><a href="detailWord.html">Dictionary</a></li>
                         <li><a href="translate.html">Translate</a></li>
+                        <li><a href="chatAI.html">ChatAI</a></li>
                         <li><a href="favoriteWord.html" id="favoriteWordLink">View favorite</a></li>
                         <li><a href="userTopic.html" id="topicLinkUser">Topic</a></li>
                         <li><a href="https://www.messenger.com/t/318840944656645">Support</a></li>
@@ -43,7 +44,6 @@ class SearchBarComponent extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <div id="output"></div>
         `;
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.appendChild(template.content.cloneNode(true));
@@ -61,30 +61,12 @@ class SearchBarComponent extends HTMLElement {
         } else {
             this.userId = null;
         } // ID người dùng cho API lịch sử
-
-   
-        // Kiểm tra liên kết "View favorite"
-        const favoriteLink = this.shadowRoot.querySelector('#favoriteWordLink');
-        favoriteLink.addEventListener('click', (event) => {
-            const token = getToken();
-            if (!token) {
-                event.preventDefault();
-                alert('You need to log in to view your favorites!'); // Hiển thị alert
-            }
-        });
-
-        const topicLinkUser = this.shadowRoot.querySelector('#topicLinkUser');
-        topicLinkUser.addEventListener('click', (event) => {
-            const token = getToken();
-            if (!token) {
-                event.preventDefault();
-                alert('You need to log in to view list topic!'); // Hiển thị alert
-            }
-        });
-
-
         this.currentFocus = -1; // Biến để theo dõi mục được chọn hiện tại
         this.searchData = []; // Biến để lưu trữ dữ liệu tìm kiếm
+
+        this.searchAbortController = null; // Để hủy yêu cầu tìm kiếm trước đó
+        this.historyAbortController = null; // Để hủy yêu cầu lịch sử trước đó
+
 
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get('search');
@@ -109,11 +91,23 @@ class SearchBarComponent extends HTMLElement {
     }
 
     onSearchInput() {
+
         const query = this.shadowRoot.querySelector('#search-input').value;
-        if (query.length > 0) {
+
+        // Kiểm tra nếu query có chứa ký tự đặc biệt
+        const specialCharPattern = /[^a-zA-Z0-9\s]/;
+
+        if (query.length > 0 && specialCharPattern.test(query) == false) {
             this.fetchSearchResults(query);
             this.fetchHistoryResults(query);
         } else {
+            // Hủy yêu cầu API đang chạy
+            if (this.searchAbortController) {
+                this.searchAbortController.abort();
+            }
+            if (this.historyAbortController) {
+                this.historyAbortController.abort();
+            }
             this.clearDropdown();
         }
     }
@@ -131,7 +125,6 @@ class SearchBarComponent extends HTMLElement {
             if (this.currentFocus > -1) {
                 if (items) {
                     const selectedItem = items[this.currentFocus];
-                    // this.shadowRoot.querySelector('#search-input').value = selectedItem.textContent;
                     this.clearDropdown();
                     this.performSearch(selectedItem.textContent, selectedItem.dataset.id);
                 }
@@ -142,6 +135,15 @@ class SearchBarComponent extends HTMLElement {
         }
     }
 
+    addActive(items) {
+        if (!items || items.length === 0) return false;
+        this.removeActive(items);
+        if (this.currentFocus >= items.length) this.currentFocus = 0;
+        if (this.currentFocus < 0) this.currentFocus = items.length - 1;
+        items[this.currentFocus].classList.add('autocomplete-active');
+        items[this.currentFocus].scrollIntoView({ behavior: "smooth", block: "nearest" }); // Đảm bảo mục được chọn luôn hiển thị
+    }
+
     onSearchButtonClick() {
         this.performSearch(this.shadowRoot.querySelector('#search-input').value);
         this.clearDropdown();
@@ -150,7 +152,6 @@ class SearchBarComponent extends HTMLElement {
     onSearchResultClick(e) {
         if (e.target.tagName === 'LI') {
             const selectedItem = e.target;
-            // this.shadowRoot.querySelector('#search-input').value = selectedItem.textContent;
             this.clearDropdown();
             this.performSearch(selectedItem.textContent, selectedItem.dataset.id);
         }
@@ -180,12 +181,14 @@ class SearchBarComponent extends HTMLElement {
     }
 
     fetchSearchResults(query) {
-        const myHeaders = new Headers();
-        myHeaders.append("Cookie", "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF");
+        if (this.searchAbortController) {
+            this.searchAbortController.abort(); // Hủy yêu cầu trước đó
+        }
+        this.searchAbortController = new AbortController();
 
         const requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            signal: this.searchAbortController.signal,
             redirect: "follow"
         };
 
@@ -195,25 +198,39 @@ class SearchBarComponent extends HTMLElement {
                 this.searchData = data;
                 this.displaySearchResults(data);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
+            });
     }
 
     fetchHistoryResults(query) {
-        const myHeaders = new Headers();
-        myHeaders.append("Cookie", "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF");
+        if (this.historyAbortController) {
+            this.historyAbortController.abort(); // Hủy yêu cầu trước đó
+        }
+        this.historyAbortController = new AbortController();
 
         const requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            signal: this.historyAbortController.signal,
             redirect: "follow"
         };
 
         fetch(`http://localhost:${port}/api/v1/searchWord/user?userId=${this.userId}&keyword=${query}&limit=3`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                this.displayHistoryResults(data);
+                if (data == null) {
+                    this.clearDropdown();
+                } else {
+                    this.displayHistoryResults(data);
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
+            });
     }
 
     displaySearchResults(results) {
@@ -224,7 +241,6 @@ class SearchBarComponent extends HTMLElement {
             li.textContent = result.name;
             li.dataset.id = result.id;
             li.addEventListener('click', () => {
-                // this.shadowRoot.querySelector('#search-input').value = result.name;
                 this.clearDropdown();
                 this.performSearch(result.name, result.id);
             });
@@ -244,7 +260,6 @@ class SearchBarComponent extends HTMLElement {
                 li.textContent = result.name;
                 li.dataset.id = result.id;
                 li.addEventListener('click', () => {
-                    // this.shadowRoot.querySelector('#search-input').value = result.name;
                     this.clearDropdown();
                     this.performSearch(result.name, result.id);
                 });
@@ -275,10 +290,10 @@ class SearchBarComponent extends HTMLElement {
             const found = this.searchData.find(item => item.name.toLowerCase() === query.toLowerCase());
             if (found || id) {
                 const searchId = found ? found.id : id;
-                this.updateURL(query, searchId);
+                this.updateURL(query);
                 this.saveSearchHistory(searchId);
             } else {
-                this.updateURL(query, null);
+                this.updateURL(query);
             }
         }
     }
@@ -291,10 +306,6 @@ class SearchBarComponent extends HTMLElement {
 
         const requestOptions = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Cookie": "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF"
-            },
             body: raw,
             redirect: "follow"
         };
@@ -305,23 +316,18 @@ class SearchBarComponent extends HTMLElement {
             .catch(error => console.error('Error:', error));
     }
 
-    updateURL(query, id) {
-        if (id) {
-            const newURL = `detailWord.html?search=${encodeURIComponent(query)}&id=${id}`;
-            window.location.href = newURL;
-        } else {
-            const newURL = `detailWord.html?search=${encodeURIComponent(query)}`;
-            window.location.href = newURL;
-        }
+    updateURL(query) {
+        const newURL = `detailWord.html?search=${encodeURIComponent(query)}`;
+        window.location.href = newURL;
     }
 }
 
 customElements.define('search-bar-component', SearchBarComponent);
 const favoriteLink = this.shadowRoot.querySelector('#favoriteWordLink');
-        favoriteLink.addEventListener('click', (event) => {
-            const token = getToken(); // Hàm lấy token
-            if (!token) {
-                event.preventDefault(); // Ngăn chặn điều hướng
-                alert('Bạn cần đăng nhập để xem mục yêu thích.');
-            }
-        });
+favoriteLink.addEventListener('click', (event) => {
+    const token = getToken(); // Hàm lấy token
+    if (!token) {
+        event.preventDefault(); // Ngăn chặn điều hướng
+        alert('Bạn cần đăng nhập để xem mục yêu thích.');
+    }
+});
