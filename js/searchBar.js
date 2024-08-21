@@ -367,3 +367,4 @@ class SearchBarComponent extends HTMLElement {
 }
 
 customElements.define('search-bar-component', SearchBarComponent);
+
