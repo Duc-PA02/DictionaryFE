@@ -9,12 +9,13 @@ import {
     setCurrentPermissionId,
     getCurrentPermissionId 
 } from './permission.js';
+import { loadUsers, displayUsers, showUserDetail } from './user.js';
 
 document.addEventListener("DOMContentLoaded", function() {
     const userLink = document.querySelector('.sidebar ul li a[href="#user"]');
-    const settingsLink = document.querySelector('.sidebar ul li a[href="#api"]'); // Added settings link selector
+    const apiLink = document.querySelector('.sidebar ul li a[href="#api"]');
     const userList = document.getElementById("user-list");
-    const permissionList = document.getElementById("permission-list"); // Added permission list container
+    const permissionList = document.getElementById("permission-list");
     const sortSelect = document.getElementById("sort");
     const directionSelect = document.getElementById("direction");
     const pagination = document.querySelector(".pagination");
@@ -47,28 +48,39 @@ document.addEventListener("DOMContentLoaded", function() {
         sidebarHeader.textContent = "Guest"; // Trường hợp không có user, hiển thị mặc định là "Guest"
     }
 
-    userLink.addEventListener("click", function() {
+    userLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        resetDisplayState();
         userControls.style.display = "flex";
-        permissionList.style.display = "none";
         userList.style.display = "block";
-        addPermissionBtn.style.display = "none";
-        loadUsers();
+        breadcrumb.innerHTML = '';
+        loadAndDisplayUsers();
     });
-
-    settingsLink.addEventListener("click", function() {
-        userControls.style.display = "none";
-        userList.style.display = "none";
+    
+    apiLink.addEventListener("click", function(e) {
+        e.preventDefault();
+        resetDisplayState();
         permissionList.style.display = "block";
         addPermissionBtn.style.display = "block";
+        breadcrumb.innerHTML = '';
         loadPermissionsAndDisplay();
     });
+    
+    function resetDisplayState() {
+        document.querySelector('.content').style.display = 'block';
+        document.getElementById('user-detail-content').style.display = 'none';
+        userControls.style.display = "none";
+        userList.style.display = "none";
+        permissionList.style.display = "none";
+        addPermissionBtn.style.display = "none";
+    }
 
     sortSelect.addEventListener("change", function() {
-        loadUsers();
+        loadAndDisplayUsers();
     });
 
     directionSelect.addEventListener("change", function() {
-        loadUsers();
+        loadAndDisplayUsers();
     });
 
     addPermissionBtn.addEventListener("click", function() {
@@ -94,28 +106,25 @@ document.addEventListener("DOMContentLoaded", function() {
             editPermissionModal.style.display = "none";
         }
     });
+    
+    async function loadAndDisplayUsers(page = 0) {
+        try {
+            const sort = sortSelect.value;
+            const direction = directionSelect.value;
+            const result = await loadUsers(page, sort, direction);
+            const tbody = displayUsers(result.data.content, userList);
+            setupPagination(result.data.totalPages, loadAndDisplayUsers);
 
-    function loadUsers(page = 0) {
-        currentPage = page;
-        const sort = sortSelect.value;
-        const direction = directionSelect.value;
-        const token = getToken();
-        const myHeaders = new Headers();
-        myHeaders.append("Authorization", `Bearer ${token}`);
-
-        const requestOptions = {
-            method: "GET",
-            headers: myHeaders,
-            redirect: "follow"
-        };
-
-        fetch(`http://localhost:8080/api/v1/admin/user?sort=${sort}&direction=${direction}&page=${page}`, requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                displayUsers(result.data.content);
-                setupPagination(result.data.totalPages, loadUsers);
-            })
-            .catch(error => console.error('Error:', error));
+            // Gắn sự kiện cho nút "Detail"
+            tbody.addEventListener("click", function(event) {
+                if (event.target.classList.contains("detail-button")) {
+                    const userId = event.target.dataset.id;
+                    showUserDetail(userId);
+                }
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     }
 
     async function loadPermissionsAndDisplay(page = 0) {
@@ -126,23 +135,6 @@ document.addEventListener("DOMContentLoaded", function() {
         } catch (error) {
             console.error('Error:', error);
         }
-    }
-
-    function displayUsers(users) {
-        userList.innerHTML = "";
-        users.forEach(user => {
-            const userCard = document.createElement("div");
-            userCard.className = "card";
-            userCard.innerHTML = `
-                <div class="user-info">
-                    <img src="${user.avatar ? user.avatar : 'https://via.placeholder.com/50'}" alt="Avatar">
-                    <div>
-                        <h3>${user.username}</h3>
-                    </div>
-                </div>
-            `;
-            userList.appendChild(userCard);
-        });
     }
     
     addPermissionForm.addEventListener("submit", async function(event) {
@@ -256,7 +248,10 @@ document.addEventListener("DOMContentLoaded", function() {
         for (let i = 0; i < totalPages; i++) {
             const button = document.createElement("button");
             button.textContent = i + 1;
-            button.addEventListener("click", () => callback(i));
+            button.addEventListener("click", () => {
+                currentPage = i;
+                callback(i);
+            });
             pagination.appendChild(button);
         }
     }  
@@ -275,6 +270,6 @@ document.addEventListener("DOMContentLoaded", function() {
         displayNotifications(user);
     });
 
-    loadUsers();
+    loadAndDisplayUsers();
     updateNotificationIcon();
 });

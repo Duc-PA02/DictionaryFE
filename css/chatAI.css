@@ -1,0 +1,129 @@
+.content {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+}
+
+.chat-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chat-header {
+    background-color: #810043;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    height: 500px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.chat-history {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    max-width: 70%;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 15px;
+    line-height: 1.5;
+    position: relative;
+    animation: fadeIn 0.3s;
+}
+
+.message.user {
+    align-self: flex-end;
+    background-color: #f8c6ce;
+    color: #333;
+    border-top-right-radius: 0;
+}
+
+.message.model {
+    align-self: flex-start;
+    background-color: #f1f1f1;
+    color: #333;
+    border-top-left-radius: 0;
+}
+
+.chat-input-container {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+}
+
+#chat-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+    font-size: 16px;
+}
+
+#send-message {
+    background-color: #810043;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-message:hover {
+    background-color: #ca567b;
+}
+
+.loading {
+    display: flex;
+    height: 100px;
+}
+
+.loading-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0 5px;
+    background-color: #da7090;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite ease-in-out;
+}
+
+.loading-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.loading-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+    0%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-15px);
+    }
+}

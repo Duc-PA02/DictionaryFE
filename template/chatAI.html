@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dictionary</title>
+    <link type="text/css" href="../css/home.css" rel="stylesheet" />
+    <link type="text/css" href="../css/chatAI.css" rel="stylesheet" />
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+</head>
+
+<body class="container">
+    <!-- Vị trí header -->
+    <header-component></header-component>
+
+    <!-- Vị trí search-bar -->
+    <search-bar-component></search-bar-component>
+
+    <!-- Nội dung trang -->
+    <div class="content">
+        <div id="output"></div>
+        <!-- CHAT AI -->
+        <div class="chat-container">
+            <div class="chat-header">Chat with AI</div>
+            <div class="chat-box">
+                <div id="chat-history" class="chat-history"></div>
+                <div class="chat-input-container">
+                    <input id="chat-input" type="text" placeholder="Type your message..." />
+                    <button id="send-message">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vị trí footer -->
+    <footer-component></footer-component>
+
+</body>
+<script src="../js/chatAI.js" type="module"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search-input');
+        const outputDiv = document.getElementById('output');
+
+        // Lấy tham số từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const searchQuery = urlParams.get('search');
+        const searchId = urlParams.get('id');
+
+        if (searchQuery) {
+            // Hiển thị từ khóa tìm kiếm trong ô tìm kiếm
+            searchInput.value = decodeURIComponent(searchQuery);
+
+            // Gọi API hoặc xử lý để hiển thị kết quả tương ứng
+            displayResult(null, searchQuery);
+            if (searchId) {
+                displayResult(searchId, searchQuery);
+            } else {
+                displayResult(null, searchQuery);
+            }
+        }
+
+        function displayResult(id, name) {
+            if (id) {
+                outputDiv.innerHTML = `ID: ${id}, Name: ${name}`;
+            } else {
+                outputDiv.innerHTML = `No results for: ${name}`;
+            }
+        }
+    });
+</script>
+
+</html>

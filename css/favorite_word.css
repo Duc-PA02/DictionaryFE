@@ -1,0 +1,231 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #e9ecef;
+}
+h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+.container {
+    width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    flex: 1;
+}
+.section {
+    margin-bottom: 20px;
+    border-top: 1px solid #f1f1f1;
+    padding-top: 10px;
+}
+.audio-icons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.audio-icon {
+    cursor: pointer;
+    color: #007bff;
+}
+ul {
+    list-style-type: square;
+    padding: 0;
+}
+li {
+    list-style-type: none;
+    background: #dfe4e8;
+    margin: 15px 0;
+    padding: 10px;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+li:hover {
+    background: #73ace6;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0; 
+    top: 0; 
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px; 
+}
+
+.modal-content {
+    background-color: #fefefe; 
+    margin: 15% auto; 
+    padding: 20px; 
+    border: 1px solid #888; 
+    width: 50%; 
+}
+
+.close {
+    color: #aaa; 
+    float: right; 
+    font-size: 28px; 
+    font-weight: bold; 
+}
+
+.close:hover,
+.close:focus {
+    color: black; 
+    text-decoration: none; 
+    cursor: pointer; 
+}
+
+#okButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#okButton:hover {
+    background-color: #0056b3;
+}
+
+.dropdown-menu {
+    display: none; /* Ẩn menu dropdown mặc định */
+    position: absolute; /* Để menu xuất hiện ở vị trí chính xác */
+    background-color: rgb(236, 240, 223); /* Màu nền của menu */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng cho menu */
+    z-index: 1; /* Đảm bảo menu hiển thị trên các phần tử khác */
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block; /* Hiển thị menu khi hover vào dropdown */
+}
+
+.dropdown-item {
+    padding: 10px 15px; /* Padding cho các item */
+    text-decoration: none; /* Bỏ gạch chân */
+    color: black; /* Màu chữ */
+    display: block; /* Hiển thị các item theo dạng block */
+}
+
+.dropdown-item:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover vào item */
+}
+
+.word-container {
+    display: flex;
+    justify-content: space-between; /* Đặt khoảng cách giữa hai nút */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin: 5px 0;
+}
+
+.word-item {
+    background-color: #ebedef;
+    color: rgb(11, 10, 10);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    flex: 1; /* Chiếm không gian còn lại */
+    text-align: left;
+}
+
+.word-item:hover {
+    background-color: #4597ef;
+}
+
+.delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-left: 10px; /* Khoảng cách giữa hai nút */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.delete-button:hover {
+    background-color: #e60000;
+}
+.container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    flex:1;
+}
+.delete-all-icon {
+    width: 24px; /* Điều chỉnh kích thước biểu tượng */
+    height: 24px; /* Điều chỉnh kích thước biểu tượng */
+    margin-right: 40px; /* Dịch vào bên trong */
+    cursor: pointer; /* Con trỏ khi di chuột */
+    transition: transform 0.2s; /* Hiệu ứng chuyển động */
+}
+
+.delete-all-icon:hover {
+    transform: scale(1.1); /* Phóng to khi di chuột */
+}
+.delete-icon {
+    width: 24px; /* Điều chỉnh kích thước biểu tượng */
+    height: 24px; /* Điều chỉnh kích thước biểu tượng */
+    cursor: pointer; /* Con trỏ khi di chuột */
+    transition: transform 0.2s; /* Hiệu ứng chuyển động */
+}
+
+.delete-icon:hover {
+    transform: scale(1.4); /* Phóng to khi di chuột */
+}
+.sort-container {
+    display: flex;
+    align-items: center; /* Căn giữa theo chiều dọc */
+    margin-left: 20px; /* Khoảng cách giữa dropdown và các phần tử khác */
+}
+.btnGame {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 12px 28px; /* Padding */
+    text-align: center; /* Centered text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block for spacing */
+    font-size: 16px; /* Font size */
+    margin: 4px 2px; /* Margins */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 8px; /* Rounded corners */
+    transition: background-color 0.3s; /* Smooth transition */
+}
+
+.btnGame:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+.sort-container {
+display: flex;
+align-items: center;
+margin-left: 20px;
+margin-bottom: 15px;
+}
+
+/* Dropdown styles */
+#sortSelect {
+padding: 10px;
+font-size: 16px;
+border: 1px solid #ccc;
+border-radius: 5px;
+margin-left: 10px;
+cursor: pointer;
+transition: border-color 0.3s;
+}
+
+#sortSelect:hover {
+border-color: #4CAF50; /* Change border color on hover */
+}

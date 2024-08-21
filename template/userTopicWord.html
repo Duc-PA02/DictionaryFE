@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="../css/index.css" rel="stylesheet" />
+    <link type="text/css" href="../css/userTopicWord.css" rel="stylesheet" />
+
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+    <script src="../js/userTopicWord.js" type="module"></script>
+    <title>Topic Words</title>
+</head>
+<body>
+
+    <header-component></header-component>
+
+    <!--SEARCH BAR-->
+    <div class="search-bar-container">
+        <div class="search-bar">
+            <input type="search" id="searchInput" placeholder="Search word">
+            <button type="button" class="search-button" onclick="searchTopicWords()">
+                <img src="Image/search-icon.png" alt="Search" class="search-icon">
+            </button>
+        </div>
+    </div>
+
+    <!--END SEARCH BAR-->
+    <div class="back-button" id="backButton">
+        <div class="arrow-wrap">
+          <span class="arrow-part-1"></span>
+          <span class="arrow-part-2"></span>
+          <span class="arrow-part-3"></span>
+        </div>
+      </div>
+    <!--CONTENT-->
+    <div class="content">
+        <div class="container">
+            <main>
+                <div id="messageDiv" style="color: red; margin-bottom: 20px;"></div>
+                <h2 class="nameTopic" id="nameTopic">Topic: </h2>
+                <div class="sort-container">
+                    <h4 id="totalTopics">Total: 0</h4>
+                    <select id="sortSelect" onchange="sortTopics()">
+                        <option value="date_ascending">date_ascending</option>
+                        <option value="date_descending">date_descending</option>
+                        <option value="dictionary_asc">dictionary_asc</option>
+                        <option value="dictionary_desc">dictionary_desc</option>
+                    </select>
+                </div>
+                <div id="wordList"></div>
+            </main>
+        </div>
+    </div>
+
+    <footer-component></footer-component>
+
+
+</body>
+</html>

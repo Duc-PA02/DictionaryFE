@@ -1,0 +1,87 @@
+.topic-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 0;
+}
+
+.topic-item {
+    background-color: #ebedef;
+    color: rgb(11, 10, 10);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    flex: 1;
+    text-align: left;
+}
+
+.topic-item:hover {
+    background-color: #4597ef;
+}
+
+.container {
+    height: 440px;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.sort-container h4 {
+    margin: 0;
+    font-weight: 600;
+    color: #333;
+}
+
+.sort-container select {
+    margin-left: 20px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.sort-container select:hover {
+    border-color: #4597ef;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    position: relative; /* Đặt vị trí tương đối */
+}
+
+.pagination button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #08a343;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pagination button:hover {
+    background-color: #d0d0d0;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+    border: 1px solid #0056b3;
+}

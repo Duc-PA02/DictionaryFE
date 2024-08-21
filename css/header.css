@@ -14,11 +14,14 @@ a:focus {
 }
 
 .header {
+    position: fixed;
+    width: 100%;
     padding: 10px;
     background-color: #003366;
     color: #FFF;
     display: flex;
     align-items: center;
+    z-index: 10;
 }
 
 .logo-header {
@@ -78,6 +81,7 @@ a:focus {
     display: flex;
     align-items: center;
     position: relative;
+    margin-right: 10px;
 }
 
 .user-menu #user-menu-toggle {
@@ -86,7 +90,7 @@ a:focus {
     color: #FFF;
     cursor: pointer;
     padding: 8px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .user-dropdown-menu {

@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Dictionary</title>
+    <link type="text/css" href="../css/home.css" rel="stylesheet" />
+    <link type="text/css" href="../css/translate.css" rel="stylesheet" />
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+</head>
+
+<body class="container">
+    <!-- Vị trí header -->
+    <header-component></header-component>
+
+    <!-- Vị trí search-bar -->
+    <search-bar-component></search-bar-component>
+
+    <!--TRANSLATE SECTION-->
+    <div class="translate-section">
+        <div class="language-select">
+            <div class="custom-select">
+                <div class="select-selected" id="source">Vietnamese</div>
+                <div class="select-items select-hide">
+                    <div class="select-option" data-value="vn">Vietnamese</div>
+                    <div class="select-option" data-value="es">Spanish</div>
+                    <div class="select-option" data-value="fr">French</div>
+                    <!-- Add more languages as needed -->
+                </div>
+            </div>
+
+            <div class="arrow-bidirectional">
+                <img src="../Image/arrows-horizontal-icon.png" alt="Bidirectional Arrow" class="arrow-bidirectional-icon">
+            </div>
+
+            <div class="custom-select">
+                <div class="select-selected" id="target">English</div>
+                <div class="select-items select-hide">
+                    <div class="select-option" data-value="en">English</div>
+                    <div class="select-option" data-value="es">Spanish</div>
+                    <div class="select-option" data-value="fr">French</div>
+                    <!-- Add more languages as needed -->
+                </div>
+            </div>
+        </div>
+        <div class="translation-container">
+            <div class="input-container">
+                <textarea id="source-text" placeholder="Enter text here"></textarea>
+                <button type="button" id="clear-textarea" class="clear-button">
+                <img src="../Image/clear-icon.png" alt="Clear" class="clear-icon">
+            </button>
+                <div class="audio-controls">
+                    <button class="audio-button" onclick="toggleAudio('source')"><img id="source-audio-img" src="../Image/no-voice-icon.png" alt=""></button>
+                    <audio id="source-audio" style="display: none;"></audio>
+                    <button class="copy-button" onclick="copyText('source')"><img id="source-copy-img" src="../Image/no-copy-icon.png" alt=""></button>
+                    <span id="char-count">0/5000</span>
+                    <img src="../Image/keyboard-icon.png" alt="Keyboard" class="keyboard-icon">
+                </div>
+            </div>
+
+            <div class="arrow-container">
+                <img src="../Image/arrow-icon.png" alt="Arrow" class="arrow-icon">
+            </div>
+
+            <div class="output-container">
+                <p id="translated-text"></p>
+                <div class="audio-controls">
+                    <button class="audio-button" onclick="toggleAudio('target')"><img id="target-audio-img" src="../Image/no-voice-icon.png" alt=""></button>
+                    <audio id="target-audio" style="display: none;"></audio>
+                    <button class="copy-button" onclick="copyText('target')"><img id="target-copy-img" src="../Image/no-copy-icon.png" alt=""></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--END TRANSLATE SECTION-->
+
+    <!-- Thông báo tùy chỉnh -->
+    <div id="custom-alert" class="custom-alert"></div>
+
+    <!-- Vị trí footer -->
+    <footer-component></footer-component>
+
+</body>
+<script type="module">
+    import { toggleAudio } from '../js/translate.js'; window.toggleAudio = toggleAudio; import { copyText } from '../js/translate.js'; window.copyText = copyText;
+</script>
+<script src="../js/translate.js" type="module"></script>
+
+</html>

@@ -1,0 +1,116 @@
+/* user.css */
+
+/* Định dạng bảng người dùng */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+}
+
+.user-table th, .user-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-table th {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.user-table td {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Định dạng avatar người dùng */
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-actions button {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    margin-right: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+}
+
+.user-actions button:hover {
+    opacity: 0.8;
+}
+
+.user-actions button:focus {
+    outline: none;
+}
+
+/* Định dạng tiêu đề người dùng */
+.user-info h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Định dạng phần thông tin người dùng */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+/* Định dạng trạng thái người dùng */
+.user-status {
+    font-size: 14px;
+    color: #555;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    color: #000;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
