@@ -70,7 +70,7 @@ body {
     padding: 20px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     margin-bottom: 20px;
     color: white;
     border-bottom: 1px solid #333;
@@ -109,75 +109,6 @@ body {
     margin-left: 20px;
 }
 
-/* Controls container */
-.controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-    justify-content: flex-end;
-}
-
-/* Style for dropdowns */
-.controls select {
-    color: #333; /* Màu chữ */
-    background-color: #ffffff; /* Màu nền */
-    border: 1px solid #ddd; /* Viền */
-    border-radius: 4px; /* Bo góc */
-    padding: 10px; /* Khoảng cách bên trong */
-    font-size: 14px; /* Kích thước chữ */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Bóng đổ */
-    transition: all 0.3s ease; /* Hiệu ứng chuyển tiếp */
-    cursor: pointer; /* Con trỏ khi hover */
-}
-
-/* Hover effect for dropdowns */
-.controls select:hover {
-    border-color: #3498db; /* Màu viền khi hover */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Bóng đổ khi hover */
-}
-
-/* Focus effect for dropdowns */
-.controls select:focus {
-    outline: none; /* Loại bỏ đường viền mặc định */
-    border-color: #3498db; /* Màu viền khi focus */
-    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); /* Bóng đổ khi focus */
-}
-
-
-.card-list {
-    width: 100%;
-}
-
-.card {
-    padding: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-}
-
-.card h3 {
-    color: #242424;
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5);
-}
-
-.card img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-right: 20px;
-}
-
-.card .user-info {
-    display: flex;
-    align-items: center;
-}
-
 .pagination {
     display: flex;
     justify-content: center;
@@ -196,244 +127,6 @@ body {
 
 .pagination button:hover {
     opacity: 0.8;
-}
-
-
-/* Styles for the modal */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
-}
-
-/* Modal content */
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* 10% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 600px; /* Limit the width for larger screens */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s;
-    color: #000;
-}
-
-/* Close button */
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: rgb(103, 59, 59);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Form styles */
-#add-permission-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#add-permission-form label {
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-#add-permission-form input {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-#add-permission-form button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#add-permission-form button:hover {
-    opacity: 0.8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-/* Add animation for the modal */
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-
-/* Styles for the "Add Permission" button */
-#add-permission-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 20px 0;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    width: 200px;
-}
-
-#add-permission-btn:hover {
-    opacity: 0.8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-#add-permission-btn:focus {
-    outline: none;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.5);
-}
-
-#add-permission-btn:active {
-    background-color: #4CAF50;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.permission-table{
-    width: 100%;
-    color: #000;
-}
-
-.permission-table td {
-    padding: 10px;
-}
-
-.permission-table th {
-    padding: 10px;
-    text-align: left;
-    background-color: #4CAF50;
-}
-
-.permission-actions {
-    display: flex;
-    gap: 10px;
-}
-
-.permission-actions button {
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.permission-actions .edit-button {
-    background-color: #4CAF50; /* Màu xanh lá cho nút Edit */
-    color: white;
-}
-
-.permission-actions .delete-button {
-    background-color: #f44336; /* Màu đỏ cho nút Delete */
-    color: white;
-}
-
-.permission-actions button:hover {
-    opacity: 0.8; /* Hiệu ứng hover */
-}
-
-/* Styles for the modal */
-.edit-modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
-}
-
-/* Modal content */
-.edit-modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* 10% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
-    max-width: 600px; /* Limit the width for larger screens */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 0.3s;
-}
-
-/* Close button */
-.edit-close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.edit-close-btn:hover,
-.edit-close-btn:focus {
-    color: rgb(103, 59, 59);
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Form styles */
-#edit-permission-form {
-    display: flex;
-    flex-direction: column;
-}
-
-#edit-permission-form label {
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-#edit-permission-form input {
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 16px;
-}
-
-#edit-permission-form button {
-    padding: 10px 20px;
-    margin-top: 20px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-#edit-permission-form button:hover {
-    opacity: 0.8;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .notification-list {
@@ -482,3 +175,37 @@ body {
     cursor: pointer;
 }
 
+/* Định dạng phần controls */
+.controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px; /* Khoảng cách giữa các phần tử bên trong controls */
+}
+
+/* Định dạng chung cho các select */
+.controls select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.controls select:hover {
+    border-color: #888; /* Đổi màu border khi hover */
+}
+
+.controls select:focus {
+    outline: none;
+    border-color: #2196F3; /* Đổi màu border khi focus */
+}
+
+/* Tùy chỉnh thêm nếu cần */
+.controls select option {
+    padding: 8px;
+    font-size: 14px;
+}

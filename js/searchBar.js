@@ -16,19 +16,24 @@ class SearchBarComponent extends HTMLElement {
                     <div class="bar"></div>
                 </div>
                 <!-- MENU XỔ XUỐNG -->
-                <div id="menu" class="menu">
-                    <div class="menu-header">
-                        <img src="../Image/logo.png" alt="Logo" />
-                        <span class="title">Dictionary</span>
+                <div id="menu-container" class"menu-container" style = "display: flex; z-index: 11; ">
+                    <div id="menu" class="menu">
+                        <div class="menu-header">
+                            <img src="../Image/logo.png" alt="Logo" />
+                            <span class="title">Dictionary</span>
+                        </div>
+                        <ul>
+                            <li><a href="detailWord.html">Dictionary</a></li>
+                            <li><a href="translate.html">Translate</a></li>
+                            <li><a href="chatAI.html">ChatAI</a></li>
+                            <li><a href="favoriteWord.html" id="favoriteWordLink">View favorite</a></li>
+                            <li><a href="userTopic.html" id="topicLinkUser">Topic</a></li>
+                            <li><a href="https://www.messenger.com/t/318840944656645">Support</a></li>
+                            <!-- Thêm các liên kết khác nếu cần -->
+                        </ul>
                     </div>
-                    <ul>
-                        <li><a href="detailWord.html">Dictionary</a></li>
-                        <li><a href="translate.html">Translate</a></li>
-                        <li><a href="favoriteWord.html" id="favoriteWordLink">View favorite</a></li>
-                        <li><a href="userTopic.html" id="topicLinkUser">Topic</a></li>
-                        <li><a href="https://www.messenger.com/t/318840944656645">Support</a></li>
-                        <!-- Thêm các liên kết khác nếu cần -->
-                    </ul>
+                    <div id="transparent-background" class="transparent-background">
+                    </div>
                 </div>
                 <!----------------------------------->
                 <div class="search-bar">
@@ -43,13 +48,13 @@ class SearchBarComponent extends HTMLElement {
                     </div>
                 </div>
             </div>
-            <div id="output"></div>
         `;
         const shadowRoot = this.attachShadow({ mode: 'open' });
         shadowRoot.appendChild(template.content.cloneNode(true));
 
         this.shadowRoot.querySelector('#menu-hamburger').addEventListener('click', this.toggleMenu.bind(this));
-        document.addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
+        // document.addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
+        this.shadowRoot.querySelector('#transparent-background').addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
 
         this.shadowRoot.querySelector('#search-input').addEventListener('input', this.onSearchInput.bind(this));
         this.shadowRoot.querySelector('#search-input').addEventListener('keydown', this.onSearchKeydown.bind(this));
@@ -93,9 +98,12 @@ class SearchBarComponent extends HTMLElement {
             }
         });
 
-
         this.currentFocus = -1; // Biến để theo dõi mục được chọn hiện tại
         this.searchData = []; // Biến để lưu trữ dữ liệu tìm kiếm
+
+        this.searchAbortController = null; // Để hủy yêu cầu tìm kiếm trước đó
+        this.historyAbortController = null; // Để hủy yêu cầu lịch sử trước đó
+
 
         const urlParams = new URLSearchParams(window.location.search);
         const searchQuery = urlParams.get('search');
@@ -106,34 +114,50 @@ class SearchBarComponent extends HTMLElement {
 
     toggleMenu() {
         const menu = this.shadowRoot.querySelector('#menu');
+        const transparent = this.shadowRoot.querySelector('#transparent-background');
         menu.classList.toggle('show');
+        transparent.classList.toggle('show');
+        document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
     }
 
     closeMenuIfClickedOutside(event) {
         const menu = this.shadowRoot.querySelector('#menu');
-        const hamburger = this.shadowRoot.querySelector('#menu-hamburger');
-        const insideComponent = this.contains(event.target) || this.shadowRoot.contains(event.target);
+        const transparent = this.shadowRoot.querySelector('#transparent-background');
 
-        if (!insideComponent && !hamburger.contains(event.target)) {
-            menu.classList.remove('show');
-        }
+        menu.classList.remove('show');
+        transparent.classList.remove('show');
+        document.body.style.overflow = ''; // Ngăn cuộn trang
     }
 
     onSearchInput() {
+
         const query = this.shadowRoot.querySelector('#search-input').value;
-        if (query.length > 0) {
+
+        // Kiểm tra nếu query có chứa ký tự đặc biệt
+        const specialCharPattern = /[^a-zA-Z0-9\s]/;
+
+        if (query.length > 0 && specialCharPattern.test(query) == false) {
             this.fetchSearchResults(query);
             this.fetchHistoryResults(query);
         } else {
+            // Hủy yêu cầu API đang chạy
+            if (this.searchAbortController) {
+                this.searchAbortController.abort();
+            }
+            if (this.historyAbortController) {
+                this.historyAbortController.abort();
+            }
             this.clearDropdown();
         }
     }
 
     onSearchKeydown(e) {
-        const items = this.shadowRoot.querySelectorAll('li');
+        const items = this.shadowRoot.querySelectorAll('#dropdown-container li');
         if (e.key === 'ArrowDown') {
             this.currentFocus++;
             this.addActive(items);
+            console.log(items);
+
         } else if (e.key === 'ArrowUp') {
             this.currentFocus--;
             this.addActive(items);
@@ -142,7 +166,6 @@ class SearchBarComponent extends HTMLElement {
             if (this.currentFocus > -1) {
                 if (items) {
                     const selectedItem = items[this.currentFocus];
-                    // this.shadowRoot.querySelector('#search-input').value = selectedItem.textContent;
                     this.clearDropdown();
                     this.performSearch(selectedItem.textContent, selectedItem.dataset.id);
                 }
@@ -153,6 +176,17 @@ class SearchBarComponent extends HTMLElement {
         }
     }
 
+    addActive(items) {
+        console.log(items);
+
+        if (!items || items.length === 0) return false;
+        this.removeActive(items);
+        if (this.currentFocus >= items.length) this.currentFocus = 0;
+        if (this.currentFocus < 0) this.currentFocus = items.length - 1;
+        items[this.currentFocus].classList.add('autocomplete-active');
+        items[this.currentFocus].scrollIntoView({ behavior: "smooth", block: "nearest" }); // Đảm bảo mục được chọn luôn hiển thị
+    }
+
     onSearchButtonClick() {
         this.performSearch(this.shadowRoot.querySelector('#search-input').value);
         this.clearDropdown();
@@ -161,7 +195,6 @@ class SearchBarComponent extends HTMLElement {
     onSearchResultClick(e) {
         if (e.target.tagName === 'LI') {
             const selectedItem = e.target;
-            // this.shadowRoot.querySelector('#search-input').value = selectedItem.textContent;
             this.clearDropdown();
             this.performSearch(selectedItem.textContent, selectedItem.dataset.id);
         }
@@ -191,12 +224,14 @@ class SearchBarComponent extends HTMLElement {
     }
 
     fetchSearchResults(query) {
-        const myHeaders = new Headers();
-        myHeaders.append("Cookie", "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF");
+        if (this.searchAbortController) {
+            this.searchAbortController.abort(); // Hủy yêu cầu trước đó
+        }
+        this.searchAbortController = new AbortController();
 
         const requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            signal: this.searchAbortController.signal,
             redirect: "follow"
         };
 
@@ -206,25 +241,39 @@ class SearchBarComponent extends HTMLElement {
                 this.searchData = data;
                 this.displaySearchResults(data);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
+            });
     }
 
     fetchHistoryResults(query) {
-        const myHeaders = new Headers();
-        myHeaders.append("Cookie", "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF");
+        if (this.historyAbortController) {
+            this.historyAbortController.abort(); // Hủy yêu cầu trước đó
+        }
+        this.historyAbortController = new AbortController();
 
         const requestOptions = {
             method: "GET",
-            headers: myHeaders,
+            signal: this.historyAbortController.signal,
             redirect: "follow"
         };
 
         fetch(`http://localhost:${port}/api/v1/searchWord/user?userId=${this.userId}&keyword=${query}&limit=3`, requestOptions)
             .then(response => response.json())
             .then(data => {
-                this.displayHistoryResults(data);
+                if (data == null) {
+                    this.clearDropdown();
+                } else {
+                    this.displayHistoryResults(data);
+                }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                if (error.name !== 'AbortError') {
+                    console.error('Error:', error);
+                }
+            });
     }
 
     displaySearchResults(results) {
@@ -235,7 +284,6 @@ class SearchBarComponent extends HTMLElement {
             li.textContent = result.name;
             li.dataset.id = result.id;
             li.addEventListener('click', () => {
-                // this.shadowRoot.querySelector('#search-input').value = result.name;
                 this.clearDropdown();
                 this.performSearch(result.name, result.id);
             });
@@ -255,7 +303,6 @@ class SearchBarComponent extends HTMLElement {
                 li.textContent = result.name;
                 li.dataset.id = result.id;
                 li.addEventListener('click', () => {
-                    // this.shadowRoot.querySelector('#search-input').value = result.name;
                     this.clearDropdown();
                     this.performSearch(result.name, result.id);
                 });
@@ -286,10 +333,10 @@ class SearchBarComponent extends HTMLElement {
             const found = this.searchData.find(item => item.name.toLowerCase() === query.toLowerCase());
             if (found || id) {
                 const searchId = found ? found.id : id;
-                this.updateURL(query, searchId);
+                this.updateURL(query);
                 this.saveSearchHistory(searchId);
             } else {
-                this.updateURL(query, null);
+                this.updateURL(query);
             }
         }
     }
@@ -302,10 +349,6 @@ class SearchBarComponent extends HTMLElement {
 
         const requestOptions = {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Cookie": "JSESSIONID=36E503BFA7CDE19F5C1E39E373B6E6EF"
-            },
             body: raw,
             redirect: "follow"
         };
@@ -316,15 +359,11 @@ class SearchBarComponent extends HTMLElement {
             .catch(error => console.error('Error:', error));
     }
 
-    updateURL(query, id) {
-        if (id) {
-            const newURL = `detailWord.html?search=${encodeURIComponent(query)}&id=${id}`;
-            window.location.href = newURL;
-        } else {
-            const newURL = `detailWord.html?search=${encodeURIComponent(query)}`;
-            window.location.href = newURL;
-        }
+    updateURL(query) {
+        const newURL = `detailWord.html?search=${encodeURIComponent(query)}`;
+        window.location.href = newURL;
     }
 }
 
 customElements.define('search-bar-component', SearchBarComponent);
+

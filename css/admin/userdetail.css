@@ -1,0 +1,134 @@
+#breadcrumb a {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 15px;
+    margin-left: 20px;
+}
+
+/* Avatar Styles */
+.user-avatar-container {
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* User Info Styles */
+.user-info-container {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    color: #000;
+}
+
+.user-info-container p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.user-info-container strong {
+    font-weight: 600;
+}
+
+/* User Status Dropdown */
+#user-status {
+    padding: 8px;
+    font-size: 16px;
+    color: #000000;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    background-color: #ffffff;
+    transition: border-color 0.3s ease;
+}
+
+#user-status:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Table Styles */
+#role-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    margin-left: 20px; /* Add left margin */
+}
+
+#role-table th, #role-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+    color: #000000;
+}
+
+#role-table th {
+    background-color: #f8f9fa;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+#role-table tr:hover {
+    background-color: #f1f3f5;
+}
+
+/* Role Permission Details */
+#role-permission-details {
+    margin-top: 20px;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-left: 20px; /* Add left margin */
+}
+
+.permission-item {
+    color: #000000;
+}
+
+#current-permission-page {
+    font-size: 16px;
+    margin: 0 10px;
+    vertical-align: middle;
+}
+
+/* Update Button */
+.update-button-container {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+    margin-left: 20px; /* Add left margin */
+}
+
+.update-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: #28a745;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update-button:hover {
+    background-color: #218838;
+}
+
+.user-permissions-container{
+    margin-left: 20px;
+}
