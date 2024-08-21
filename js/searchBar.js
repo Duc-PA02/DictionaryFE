@@ -98,6 +98,7 @@ class SearchBarComponent extends HTMLElement {
             }
         });
 
+
         this.currentFocus = -1; // Biến để theo dõi mục được chọn hiện tại
         this.searchData = []; // Biến để lưu trữ dữ liệu tìm kiếm
 
