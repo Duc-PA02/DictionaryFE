@@ -16,20 +16,24 @@ class SearchBarComponent extends HTMLElement {
                     <div class="bar"></div>
                 </div>
                 <!-- MENU XỔ XUỐNG -->
-                <div id="menu" class="menu">
-                    <div class="menu-header">
-                        <img src="../Image/logo.png" alt="Logo" />
-                        <span class="title">Dictionary</span>
+                <div id="menu-container" class"menu-container" style = "display: flex; z-index: 11; ">
+                    <div id="menu" class="menu">
+                        <div class="menu-header">
+                            <img src="../Image/logo.png" alt="Logo" />
+                            <span class="title">Dictionary</span>
+                        </div>
+                        <ul>
+                            <li><a href="detailWord.html">Dictionary</a></li>
+                            <li><a href="translate.html">Translate</a></li>
+                            <li><a href="chatAI.html">ChatAI</a></li>
+                            <li><a href="favoriteWord.html" id="favoriteWordLink">View favorite</a></li>
+                            <li><a href="userTopic.html" id="topicLinkUser">Topic</a></li>
+                            <li><a href="https://www.messenger.com/t/318840944656645">Support</a></li>
+                            <!-- Thêm các liên kết khác nếu cần -->
+                        </ul>
                     </div>
-                    <ul>
-                        <li><a href="detailWord.html">Dictionary</a></li>
-                        <li><a href="translate.html">Translate</a></li>
-                        <li><a href="chatAI.html">ChatAI</a></li>
-                        <li><a href="favoriteWord.html" id="favoriteWordLink">View favorite</a></li>
-                        <li><a href="userTopic.html" id="topicLinkUser">Topic</a></li>
-                        <li><a href="https://www.messenger.com/t/318840944656645">Support</a></li>
-                        <!-- Thêm các liên kết khác nếu cần -->
-                    </ul>
+                    <div id="transparent-background" class="transparent-background">
+                    </div>
                 </div>
                 <!----------------------------------->
                 <div class="search-bar">
@@ -49,7 +53,8 @@ class SearchBarComponent extends HTMLElement {
         shadowRoot.appendChild(template.content.cloneNode(true));
 
         this.shadowRoot.querySelector('#menu-hamburger').addEventListener('click', this.toggleMenu.bind(this));
-        document.addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
+        // document.addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
+        this.shadowRoot.querySelector('#transparent-background').addEventListener('click', this.closeMenuIfClickedOutside.bind(this));
 
         this.shadowRoot.querySelector('#search-input').addEventListener('input', this.onSearchInput.bind(this));
         this.shadowRoot.querySelector('#search-input').addEventListener('keydown', this.onSearchKeydown.bind(this));
@@ -77,17 +82,19 @@ class SearchBarComponent extends HTMLElement {
 
     toggleMenu() {
         const menu = this.shadowRoot.querySelector('#menu');
+        const transparent = this.shadowRoot.querySelector('#transparent-background');
         menu.classList.toggle('show');
+        transparent.classList.toggle('show');
+        document.body.style.overflow = 'hidden'; // Ngăn cuộn trang
     }
 
     closeMenuIfClickedOutside(event) {
         const menu = this.shadowRoot.querySelector('#menu');
-        const hamburger = this.shadowRoot.querySelector('#menu-hamburger');
-        const insideComponent = this.contains(event.target) || this.shadowRoot.contains(event.target);
+        const transparent = this.shadowRoot.querySelector('#transparent-background');
 
-        if (!insideComponent && !hamburger.contains(event.target)) {
-            menu.classList.remove('show');
-        }
+        menu.classList.remove('show');
+        transparent.classList.remove('show');
+        document.body.style.overflow = ''; // Ngăn cuộn trang
     }
 
     onSearchInput() {
@@ -113,10 +120,12 @@ class SearchBarComponent extends HTMLElement {
     }
 
     onSearchKeydown(e) {
-        const items = this.shadowRoot.querySelectorAll('li');
+        const items = this.shadowRoot.querySelectorAll('#dropdown-container li');
         if (e.key === 'ArrowDown') {
             this.currentFocus++;
             this.addActive(items);
+            console.log(items);
+
         } else if (e.key === 'ArrowUp') {
             this.currentFocus--;
             this.addActive(items);
@@ -136,6 +145,8 @@ class SearchBarComponent extends HTMLElement {
     }
 
     addActive(items) {
+        console.log(items);
+
         if (!items || items.length === 0) return false;
         this.removeActive(items);
         if (this.currentFocus >= items.length) this.currentFocus = 0;

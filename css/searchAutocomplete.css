@@ -144,7 +144,7 @@
     background-color: #fff;
     color: #000;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    z-index: 11;
+    z-index: 12;
     overflow-y: auto;
     transition: width 0.3s ease;
     /* Hiệu ứng mượt mà */
@@ -199,4 +199,26 @@
 .menu a:hover {
     background-color: #f4f7ff;
     outline: none;
+}
+
+.transparent-background {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    /* Ban đầu ẩn menu */
+    height: 100%;
+    background-color: rgb(173, 205, 249);
+    opacity: 0.2;
+    color: #000;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 11;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    /* Hiệu ứng mượt mà */
+}
+
+.transparent-background.show {
+    width: 100%;
 }
