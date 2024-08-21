@@ -3,7 +3,7 @@ import { updateNotificationIcon } from './notification.js';
 
 let currentPermissionId = null;
 
-export async function loadPermissions(page = 0) {
+export async function loadPermissions(page = 0, size = 10) {
     const token = getToken();
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Bearer ${token}`);
@@ -15,10 +15,16 @@ export async function loadPermissions(page = 0) {
     };
 
     try {
-        const response = await fetch(`http://localhost:8080/api/v1/admin/permission?page=${page}`, requestOptions);
+        const response = await fetch(`http://localhost:8080/api/v1/admin/permission?page=${page}&size=${size}`, requestOptions);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         return await response.json();
     } catch (error) {
         console.error('Error:', error);
+        throw error;
     }
 }
 
@@ -48,7 +54,6 @@ export function displayPermissions(permissions, permissionList) {
             <td>${permission.method}</td>
             <td>${permission.path}</td>
             <td class="permission-actions">
-                <button class="add-permission-btn">Add API</button>
                 <button class="edit-button" data-id="${permission.id}">Edit</button>
                 <button class="delete-button" data-id="${permission.id}">Delete</button>
             </td>
