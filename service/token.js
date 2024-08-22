@@ -6,6 +6,15 @@ function getToken() {
     if (window.location.pathname.endsWith('detailWord.html') && !token) {
         return null; 
     }
+    if (window.location.pathname.endsWith('translate.html') && !token) {
+        return null; 
+    }
+    if (window.location.pathname.endsWith('chatAI.html') && !token) {
+        return null; 
+    }
+    if (window.location.pathname.endsWith('home.html') && !token) {
+        return null; 
+    }
 
     if (!token) {
         redirectToLogin();

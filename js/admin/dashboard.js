@@ -13,6 +13,7 @@ import { loadUsers, displayUsers, showUserDetail } from './user.js';
 import { start } from './word_management/word-management.js';
 
 document.addEventListener("DOMContentLoaded", function() {
+    const topicLink = document.querySelector('.sidebar ul li a[href="#topic"]');
     const userLink = document.querySelector('.sidebar ul li a[href="#user"]');
     const apiLink = document.querySelector('.sidebar ul li a[href="#api"]');
     const wordLink = document.querySelector('.sidebar ul li a[href="#word"]');
@@ -45,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const editPermissionPathInput = document.getElementById("edit-permission-path");
     const sidebarHeader = document.querySelector('.sidebar-header h2');
     const bellIcon = document.querySelector('.fa-bell');
+    const topicWord = document.getElementById("topic-word");
     let currentPage = 0;
     
     // Set default sort and direction
@@ -67,6 +69,8 @@ document.addEventListener("DOMContentLoaded", function() {
         userList.style.display = "block";
         breadcrumb.innerHTML = '';
         pagination.style.display = "";
+        topicList.style.display = "none";
+        topicWord.style.display = "none";
         loadAndDisplayUsers();
     });
     
@@ -77,6 +81,8 @@ document.addEventListener("DOMContentLoaded", function() {
         addPermissionBtn.style.display = "block";
         breadcrumb.innerHTML = '';
         pagination.style.display = "";
+        topicList.style.display = "none";
+        topicWord.style.display = "none";
         loadPermissionsAndDisplay();
     });
 
@@ -85,8 +91,31 @@ document.addEventListener("DOMContentLoaded", function() {
         resetDisplayState();
         contentWraperWordManage.style.display="block";
         paginationContainer.style.display = "flex";
+        topicList.style.display = "none";
+        topicWord.style.display = "none";
         start(renderWordDetail);
     })
+
+    topicLink.addEventListener("click", function(event){
+        event.preventDefault();
+        resetDisplayState();
+        userControls.style.display = "none";
+        userList.style.display = "none";
+        permissionList.style.display = "none";
+        addPermissionBtn.style.display = "none";
+        topicList.style.display = "block";
+        topicWord.style.display = "none";
+        contentWraperWordManage.style.display="none";
+        paginationContainer.style.display = "none";
+        //reset word-detail
+        wordLabel.style.display = "none"
+        typeSection.style.display = "none"
+        modalType.style.display = "none"
+        antonymSection.style.display = "none"
+        synonymSection.style.display = "none"
+        paginationT.style.display = "flex";
+        loadTopics(currentPage);
+    });
 
     function renderWordDetail(){
         resetDisplayState();
