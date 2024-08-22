@@ -2,6 +2,17 @@ import { getToken, getUserFromToken } from '../../service/token.js';
 document.addEventListener("DOMContentLoaded", function() {
     const userLink = document.querySelector('.sidebar ul li a[href="#user"]');
     const settingsLink = document.querySelector('.sidebar ul li a[href="#api"]'); // Added settings link selector
+    
+    const wordLink = document.querySelector('.sidebar ul li a[href="#word"]');
+    const contentWraperWordManage = document.querySelector(".content-wrapper");
+    const paginationContainer = document.querySelector(".pagination-container");
+
+    const wordLabel = document.querySelector("#word-label");
+    const typeSection = document.querySelector("#type-section");
+    const modalType = document.querySelector(".modal-type");
+    const antonymSection = document.querySelector("#antonym-section");
+    const synonymSection = document.querySelector("#synonym-section");
+
     // vnp
     const topicLink = document.querySelector('.sidebar ul li a[href="#topic"]');
     const topicList = document.getElementById("topic-list");

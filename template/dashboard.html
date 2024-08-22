@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="../css/admin/searchAddToTopic.css">
     <link rel="stylesheet" href="../css/admin/user.css">
     <link rel="stylesheet" href="../css/admin/permission.css">
+    <link rel="stylesheet" href="../css/admin/word_management.css">
+    <link rel="stylesheet" href="../css/admin/add_word.css">
     <link rel="stylesheet" href="../css/admin/userdetail.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
@@ -22,6 +24,7 @@
             <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
             <li><a href="#user"><i class="fas fa-user"></i> User</a></li>
             <li><a href="#api"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#word"><i class="fa-solid fa-hat-cowboy"></i>Word</a></li>
             <li><a href="#topic"><i class="fa-solid fa-hat-cowboy"></i>Topic</a></li>
             <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
@@ -53,6 +56,94 @@
                 <div id="permission-list" class="card-list" style="display:none;">
                     <!-- Permission list will be populated here -->
                 </div>
+
+                 <!-- word-management -->
+                 <div class="content-wrapper">
+                    <div class="search-container">
+                        <div class="main-search-container">
+                            <input type="text" class="search-word" placeholder="Search...">
+                            <ul class="result-search">
+                                
+                            </ul>
+                        </div>
+                        <a type="text" class="add-word-btn" >Add word</a>
+                    </div>
+                    <div id="section-word">
+                        <!-- Your word items here -->
+                        
+                    </div>
+                </div>
+                <div class="pagination-container">
+    
+                    <!-- Your pagination here -->
+                   
+                </div>
+
+
+
+                <!-- edit add word -->
+                <div id="word-label" class="normal"> 
+                    <div class="btn-container">
+                       <button class="btn btn-delete" id="btn-delete-word"><i class="fas fa-trash-alt"></i></button>
+                       <button class="btn btn-save" id="btn-save-word"><i class="fas fa-save"></i></button>
+                       <button class="btn btn-edit" id="btn-edit-word"><i class="fas fa-edit"></i></button>
+                           </div>
+                   
+                   <div id="word-name-container">
+                       <div class = "word-name">Hello</div>
+                       <input class="word-name" placeholder="Word name" value="Hello">
+                       <div id="word-name-error" class="error-message"></div>
+                   </div>
+               </div> 
+   
+               <!-- class = "edit" -->
+               <div id="type-section" >
+                   <!-- <div class="type-label">
+                       <span><strong>Types of word:</strong></span>
+                   </div> -->
+                   <div id="type-section-error" class="error-message"></div>
+                   <div id="type-container">
+                       
+                   </div>
+                   <div id = "btn-add-type-container">
+                       <button class = "btn" id="btn-add-type">Add more type</button>
+                   </div>
+               </div>
+   
+               <div class="modal-type">
+   
+               </div>
+               <div id="antonym-section">
+                   <div class="antonym-label">
+                       <span><strong>Antonyms:</strong></span>
+                   </div>
+                   <div class="antonym-search">
+                       <input type="text" placeholder="search antonynm" id = "antonym-search">
+                       <ul class="result-search">
+                               
+                       </ul>
+                   </div>
+                   <div class="antonym-container">
+                       
+                   </div>
+               </div>
+               <div id="synonym-section">
+                   <div class="synonym-label">
+                       <span><strong>Synonyms:</strong></span>
+                   </div>
+                   <div class="synonym-search">
+                       <input type="text" placeholder="search synonym" id = "synonym-search">
+                       <ul class="result-search">
+                               
+                       </ul>
+                   </div>
+                   <div class="synonym-container">
+                       
+                   </div>
+           
+           </div>
+
+
 
                 <!-- Topic section -->
                 <div id="topic-list" class="card-list-topic-list" style="display: none; color: black;"></div>
@@ -147,5 +238,7 @@
 
     <script type="module" src="../js/admin/dashboard.js"></script>
     <script type="module" src="../js/admin/topic.js"></script>
+    <script type="module" src="../js/admin/word_management/word-management.js"></script>
+    <script type="module" src="../js/admin/word_management/add-word.js"></script>
 </body>
 </html>
