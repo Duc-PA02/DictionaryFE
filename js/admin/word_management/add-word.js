@@ -1,3 +1,4 @@
+import { getToken, getUserFromToken } from '../../../service/token.js';
 const content = document.querySelector(".content");
 const wordLabel = document.querySelector("#word-label");
 const typeSection = document.querySelector("#type-section");
@@ -14,7 +15,7 @@ var pronunciationTMPID = 0;
 var definitionTMPID = 0;
 var synonymTMPID = 0;
 var antonymTMPID = 0;
-
+let token = '';
 let states = ["normal", "edit", "active", "add", "delete", "error"];
 
 let  word = {
@@ -61,6 +62,7 @@ function renderWordLabelEdit() {
 
 function setUpWordButonContainerListener() {
     console.log("set up save word")
+    wordLabel.querySelector(".btn-delete").replaceWith(wordLabel.querySelector(".btn-delete").cloneNode(true))
     wordLabel.querySelector(".btn-delete").addEventListener("click", function(event) {
         alert("Do you want delete word?");
         //console alert
@@ -72,7 +74,7 @@ function setUpWordButonContainerListener() {
         // renderWordLabel(states[1]);
         // renderTypeSection(states[1]);
     });
-
+    wordLabel.querySelector(".btn-save").replaceWith(wordLabel.querySelector(".btn-save").cloneNode(true))
     wordLabel.querySelector(".btn-save").addEventListener("click", function(event) {
         //validate
         // alert("click save word")
@@ -84,13 +86,14 @@ function setUpWordButonContainerListener() {
             // Gọi API để lưu thay đổi
             alert('Do you want to save word?')
             console.log("save word: " +  JSON.stringify(word));
+            console.log(action)
             if(action === "add"){
                 callAddWord();
             }else if(action === "detail"){
                 callSaveWord();
             }
             // renderWord(states[1])
-            renderWord(states[0]);
+            // renderWord(states[0]);
             // renderWordLabel(states[0]);
             // renderTypeSection(states[0]);
         }
@@ -172,6 +175,8 @@ function renderTypeContainerActive(){
 
 function setUpAddTypeListener(){
     console.log("call setup add type");
+    typeSection.querySelector("#btn-add-type").replaceWith(typeSection.querySelector("#btn-add-type").cloneNode(true));
+
     typeSection.querySelector("#btn-add-type").addEventListener("click", function(event){
         // alert("Do you want to add type?")
         typeSection.querySelector(".error-message").innerHTML = "List types cannot be empty.";
@@ -328,6 +333,7 @@ function renderSelectType(type){
     let typeSelect = document.createElement("select");
     typeSelect.setAttribute("name", "type");
     typeSelect.setAttribute("class", "select-type");
+    console.log(typeNames)
     typeNames.forEach(tp=>{
         let typeOption = document.createElement("option");
         typeOption.setAttribute("value", tp.type);
@@ -622,7 +628,7 @@ function renderDefinitionSectionNormal(definitionsList, itemState){
     definitionSectionElement.setAttribute("class", `definition-section normal`);
    
 
-    definitionLabelElement = document.createElement("div");
+    let definitionLabelElement = document.createElement("div");
     definitionLabelElement.setAttribute("class", "label-container");
     definitionLabelElement.innerHTML = `<label>Definitions: </label>
                                 <div class="btn-container">
@@ -641,7 +647,7 @@ function renderDefinitionSectionActive(definitionsList, itemState){
     let definitionSectionElement = document.createElement("div");
     definitionSectionElement.setAttribute("class", `definition-section active`);
 
-    definitionLabelElement = document.createElement("div");
+    let definitionLabelElement = document.createElement("div");
     definitionLabelElement.setAttribute("class", "label-container");
     definitionLabelElement.innerHTML = `<label>Definitions: </label>
                                 <div class="btn-container">
@@ -768,34 +774,34 @@ function setOnClickAddDefinition(addDefinitionButton, definitionsList){
     })
 }
 
-function setUpPronunciationItemListener(pronunciationsList,pronunciationItemElement, pronunciation){
-    pronunciationItemElement.querySelector(".btn-delete").addEventListener("click", function(event){
-        if(pronunciationsList.length > 1){
-            var index= pronunciationsList.indexOf(pronunciation);
-            pronunciationsList.splice(index, 1);
-            pronunciationItemElement.remove();
-        }
-        else{
-            alert("Cần ít nhất 1 pronunciation")
-        }
+// function setUpPronunciationItemListener(pronunciationsList,pronunciationItemElement, pronunciation){
+//     pronunciationItemElement.querySelector(".btn-delete").addEventListener("click", function(event){
+//         if(pronunciationsList.length > 1){
+//             var index= pronunciationsList.indexOf(pronunciation);
+//             pronunciationsList.splice(index, 1);
+//             pronunciationItemElement.remove();
+//         }
+//         else{
+//             alert("Cần ít nhất 1 pronunciation")
+//         }
         
 
-    });
-    pronunciationItemElement.querySelector(".btn-edit").addEventListener("click", function(event){
-        let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[1]);
-        pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement )
-    });
-    pronunciationItemElement.querySelector(".btn-save").addEventListener("click", function(event){
-        let s = validatePronunciation(pronunciationItemElement, pronunciation);
-        if(!s){
-            alert("Không được để trống")
-        }
-        else{
-            let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[2]);
-            pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement );
-        }
-    });
-}
+//     });
+//     pronunciationItemElement.querySelector(".btn-edit").addEventListener("click", function(event){
+//         let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[1]);
+//         pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement )
+//     });
+//     pronunciationItemElement.querySelector(".btn-save").addEventListener("click", function(event){
+//         let s = validatePronunciation(pronunciationItemElement, pronunciation);
+//         if(!s){
+//             alert("Không được để trống")
+//         }
+//         else{
+//             let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[2]);
+//             pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement );
+//         }
+//     });
+// }
 
 
 function setUpDefinitionItemListener(definitionsList, definitionElement, definition){
@@ -1126,6 +1132,14 @@ function converWordFEToWordBE(data){
         antonymsList: [],
         synonymsList: []
     }
+    if(data.id === "" || data.id === null){
+        word = {
+            name: data.name,
+            typeList: [],
+            antonymsList: [],
+            synonymsList: []
+        }
+    }
 
     data.typeList.forEach(typefe=> {
         var typebe  = {
@@ -1254,12 +1268,20 @@ function convertWordBEToWordFE(data){
 
 //call api
 
-async function getWord(){
-    const params = new URLSearchParams(window.location.search);
-    const wordID = params.get('id'); // e.g., "1"
-    const apiURL = `http://localhost:8080/api/v1/words/${wordID}`;
-    const response = await fetch(apiURL);
-    console.log(wordID)
+async function getWord(wordID){
+    // const params = new URLSearchParams(window.location.search);
+    // const wordID = params.get('id'); // e.g., "1"
+    const apiURL = `http://localhost:8080/api/v1/admin/words/${wordID}`;
+    const response = await fetch(apiURL,{
+            method: 'GET', // or 'POST', 'PUT', etc.
+            headers: {
+                'Authorization': `Bearer ${token}`, // Add token to the Authorization header
+                'Content-Type': 'application/json',
+                // Add other headers if needed
+            }
+    }
+    );
+
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
@@ -1276,22 +1298,36 @@ async function getWord(){
 }
 
 async function getTypeNames() {
-    let apiURL = `http://localhost:8080/api/v1/types`;
-    const response = await fetch(apiURL);
+    const api = `http://localhost:8080/api/v1/admin/types`;
+    const response = await fetch(api, {
+        method: 'GET', // or 'POST', 'PUT', etc.
+        headers: {
+            'authorization': `Bearer ${token}`, // Add token to the Authorization header
+            'Content-Type': 'application/json',
+            // Add other headers if needed
+        }
+    });
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
     const data = await response.json();
    
     typeNames = data
-    console.log(typeNames)
+    console.log("types: " +typeNames)
 }
 
 async function fetchWordByName(wordName) {
     if(wordName != "" && /[!@#$%^&*(),.?":{}|<>\\\/]/.test(wordName) === false){
-        var apiURL = `http://localhost:8080/api/v1/words?name=${wordName}`;
+        var apiURL = `http://localhost:8080/api/v1/admin/words?name=${wordName}`;
 
-        const response = await fetch(apiURL);
+        const response = await fetch(apiURL, {
+            method: 'GET', // or 'POST', 'PUT', etc.
+            headers: {
+                'Authorization': `Bearer ${token}`, // Add token to the Authorization header
+                'Content-Type': 'application/json',
+                // Add other headers if needed
+            }
+        });
         const data = await response.json();
         
         console.log(data)    
@@ -1301,11 +1337,12 @@ async function fetchWordByName(wordName) {
 }
 
 async function deleteWord() {
-    const apiURL = `http://localhost:8080/api/v1/words/${word.id}`;
+    const apiURL = `http://localhost:8080/api/v1/admin/words/${word.id}`;
     
     const response = await fetch(apiURL, {
         method: 'DELETE', // Chuyển phương thức thành POST
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json', // Xác định loại nội dung là JSON
         },
     });
@@ -1313,44 +1350,53 @@ async function deleteWord() {
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
+    document.querySelector('.sidebar ul li a[href="#word"]').click();
     // const data = await response.json();
-    var url = `http://127.0.0.1:5500/Dict-frontend/template/admin/word_management/word_management.html`;
-    window.location.href = url;
+    // var url = `http://127.0.0.1:5502/template/admin/word_management/word_management.html`;
+    // window.location.href = url;
+
 
 }
 
 async function callAddWord() {
-    const apiURL = `http://localhost:8080/api/v1/words`;
+    const apiURL = `http://localhost:8080/api/v1/admin/words`;
     let addWord= converWordFEToWordBE(word);
     console.log("before call Add word: " + JSON.stringify(addWord));
 
     const response = await fetch(apiURL, {
         method: 'POST', // Chuyển phương thức thành POST
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json', // Xác định loại nội dung là JSON
         },
         body: JSON.stringify(addWord) // Chuyển đổi đối tượng thành chuỗi JSON
     });
 
     if (!response.ok) {
+        let error = await response.json();
+        wordLabel.querySelector(".error-message").innerHTML = error.message;
+        wordLabel.querySelector(".error-message").setAttribute("style","display: block;" )
+        wordLabel.querySelector("input").setAttribute("class", "word-name error")
         throw new Error('Network response was not ok');
     }
 
     const data = await response.json();
     word = convertWordBEToWordFE(data);
-    
-    window.location.href = `word_detail.html?id=${word.id}`
+    // window.location.href = `word_detail.html?id=${word.id}`
+    renderAddWord("detail", word.id);
+
 }
 
 async function callSaveWord() {
 
     var updateWord = converWordFEToWordBE(word);
     console.log("before call: " + JSON.stringify(updateWord));
-    const apiURL = `http://localhost:8080/api/v1/words/${updateWord.id}`;
+    const apiURL = `http://localhost:8080/api/v1/admin/words/${updateWord.id}`;
     
     const response = await fetch(apiURL, {
         method: 'PUT', // Chuyển phương thức thành POST
         headers: {
+            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json', // Xác định loại nội dung là JSON
         },
         body: JSON.stringify(updateWord) // Chuyển đổi đối tượng thành chuỗi JSON
@@ -1368,9 +1414,20 @@ async function callSaveWord() {
    
 }
 
-function start() {
-    let requestURL = window.location.href;
-    if(requestURL.includes("add_word.html")){
+function renderAddWord(actionS, wordID) {
+    // let requestURL = window.location.href;
+    wordLabel.style.display = "flex"
+    typeSection.style.display = "flex"
+    // modalType.style.display = "none"
+    antonymSection.style.display = "flex"
+    synonymSection.style.display = "flex" 
+    token = getToken();
+    if(token === null || token === ''){
+        window.location.href = "http://127.0.0.1:5502/template/login.html"
+    }
+
+    // if(requestURL.includes("add_word.html")){
+    if(actionS==="add_word"){
         action = "add"
         word = convertWordBEToWordFE(
             {   "id": "",
@@ -1387,7 +1444,8 @@ function start() {
         renderWord(states[1]);
     }
     else{
-        getWord();
+        action="detail"
+        getWord(wordID);
     }
     getTypeNames();
 
@@ -1399,6 +1457,6 @@ function start() {
    
 }
 
+export {renderAddWord}
 
-
-start();
+// start();

@@ -4,6 +4,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* wordLabel.style.display = "none"
+typeSection.style.display = "none"
+modalType.style.display = "none"
+antonymSection.style.display = "none"
+synonymSection.style.display = "none" */
 
 /* Body Styling */
 body {
@@ -68,7 +73,7 @@ body {
 }
 
 .content #word-label{
-    display: flex;
+    display: none;
     justify-content: space-between;
     flex-direction: row-reverse;
     align-items: baseline;
@@ -160,7 +165,7 @@ input.error {
 /* Type section */
 
 #type-section {
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 12px 0px;
     font-size: 24px;
@@ -473,7 +478,7 @@ input.error {
 /* Antonym section */
 
 .content #antonym-section {
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 12px 0px;
     margin-bottom: 15px;
@@ -592,7 +597,7 @@ input.error {
 /* Synonym section */
 
 .content #synonym-section {
-    display: flex;
+    display: none;
     flex-direction: column;
     padding: 12px 0px;
     margin-bottom: 15px;

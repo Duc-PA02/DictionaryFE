@@ -3,6 +3,19 @@ import jwtDecode from 'https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-d
 function getToken() {
     const token = localStorage.getItem('token');
     
+    if (window.location.pathname.endsWith('detailWord.html') && !token) {
+        return null; 
+    }
+    if (window.location.pathname.endsWith('translate.html') && !token) {
+        return null; 
+    }
+    if (window.location.pathname.endsWith('chatAI.html') && !token) {
+        return null; 
+    }
+    if (window.location.pathname.endsWith('home.html') && !token) {
+        return null; 
+    }
+
     if (!token) {
         redirectToLogin();
         return null;

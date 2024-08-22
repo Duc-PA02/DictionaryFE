@@ -105,6 +105,7 @@ a:focus {
     /* Increased width for the search bar */
     display: flex;
     align-items: center;
+    margin-top: 80px;
 }
 
 .search-bar input[type="search"] {

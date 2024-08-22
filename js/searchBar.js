@@ -66,6 +66,39 @@ class SearchBarComponent extends HTMLElement {
         } else {
             this.userId = null;
         } // ID người dùng cho API lịch sử
+
+        const app = {
+            openModal: function(message) {
+                const modal = document.getElementById('messageModal');
+                const modalMessage = document.getElementById('modalMessage');
+                modalMessage.textContent = message;
+                modal.style.display = 'block';
+            },
+            closeModal: function() {
+                const modal = document.getElementById('messageModal');
+                modal.style.display = 'none';
+            }
+        };
+        // Kiểm tra liên kết "View favorite"
+        const favoriteLink = this.shadowRoot.querySelector('#favoriteWordLink');
+        favoriteLink.addEventListener('click', (event) => {
+            const token = getToken();
+            if (!token) {
+                event.preventDefault();
+                app.openModal('You need to log in to view your favorites!');
+            }
+        });
+
+        const topicLinkUser = this.shadowRoot.querySelector('#topicLinkUser');
+        topicLinkUser.addEventListener('click', (event) => {
+            const token = getToken();
+            if (!token) {
+                event.preventDefault();
+                app.openModal('You need to log in to view topic!');
+            }
+        });
+
+
         this.currentFocus = -1; // Biến để theo dõi mục được chọn hiện tại
         this.searchData = []; // Biến để lưu trữ dữ liệu tìm kiếm
 
@@ -334,11 +367,4 @@ class SearchBarComponent extends HTMLElement {
 }
 
 customElements.define('search-bar-component', SearchBarComponent);
-const favoriteLink = this.shadowRoot.querySelector('#favoriteWordLink');
-favoriteLink.addEventListener('click', (event) => {
-    const token = getToken(); // Hàm lấy token
-    if (!token) {
-        event.preventDefault(); // Ngăn chặn điều hướng
-        alert('Bạn cần đăng nhập để xem mục yêu thích.');
-    }
-});
+
