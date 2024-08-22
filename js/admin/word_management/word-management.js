@@ -1,4 +1,7 @@
+import { getToken, getUserFromToken } from '../../../service/token.js';
+import { renderAddWord } from './add-word.js';
 var pageContainer = document.querySelector(".pagination-container");
+const contentWraperWordManage = document.querySelector(".content-wrapper");
 var wordContainer = document.querySelector("#section-word");
 var addWordBtn = document.querySelector(".add-word-btn");
 var searcWord = document.querySelector(".search-word");
@@ -10,27 +13,43 @@ var maxpage = 10;
 var currentPage = 1;
 let lastId = 0;
 let firstID = 0;
-
-function start() {
-    renderPage();
+let token = '';
+function start(callback) {
+    contentWraperWordManage.style.display="block";
+    pageContainer.style.display = "flex";
+    // callback()
+    token = getToken();
+    if(token === null || token === ''){
+        window.location.href = 'http://127.0.0.1:5502/template/login.html';
+    }
+    renderPage(callback);
 
     addWordBtn.addEventListener("click", function(event){
-        window.location.href = "add_word.html"
+        // window.location.href = "add_word.html"
+        callback();
+        renderAddWord("add_word");
     })
     searcWord.addEventListener("input", async function(event){
         var lsWord = await fetchWordByName(event.target.value);
         // renderResultSearch(lsWord);
         console.log(lsWord);
-        renderResultSearch(lsWord);
+        renderResultSearch(lsWord, callback);
     })
 }
 {/* <div class="search-container"></div> */}
 async function fetchWordByName(wordName) {
     console.log("test" + /[!@#$%^&*(),.?":{}|<>\\\/]/.test(wordName))
     if(wordName != "" && /[!@#$%^&*(),.?":{}|<>\\\/]/.test(wordName)===false ){
-        var apiURL = `http://localhost:8080/api/v1/words?name=${wordName}`;
+        var apiURL = `http://localhost:8080/api/v1/admin/words?name=${wordName}`;
 
-        const response = await fetch(apiURL);
+        const response = await fetch(apiURL, {
+                method: 'GET', // or 'POST', 'PUT', etc.
+                headers: {
+                    'Authorization': `Bearer ${token}`, // Add token to the Authorization header
+                    'Content-Type': 'application/json',
+                    // Add other headers if needed
+                }
+        });
         const data = await response.json();
         if (!response.ok) {
             return []
@@ -44,57 +63,72 @@ async function fetchWordByName(wordName) {
    
 }
 
-function renderResultSearch(words){
+function renderResultSearch(words,callback){
     wordResult.innerHTML = "";
     if(words.length > 0) {
         words.forEach(word => {
             var wordItem = document.createElement("li");
-            var url = document.createElement("a");
-            url.setAttribute("href",`http://127.0.0.1:5500/Dict-frontend/template/admin/word_management/word_detail.html?id=${word.id}`);
+            var url = document.createElement("div");
+            url.setAttribute("href",`word_detail.html?id=${word.id}`);
             var wordName = document.createElement("div")
             wordName.innerHTML = word.name;
             url.appendChild(wordName);
             wordItem.appendChild(url);
             wordResult.appendChild(wordItem);
+            wordItem.addEventListener("click", function(event){
+                callback();
+                renderAddWord("detail", word.id);
+            })
         })
     }
     
 }
 
-async function getPage() {
-    var apiURL = `http://localhost:8080/api/v1/words/page?page=${currentPage - 1}&limit=${limit}`;
-
-    const response = await fetch(apiURL);
+async function getPage(callback) {
+    var apiURL = `http://localhost:8080/api/v1/admin/words/page?page=${currentPage - 1}&limit=${limit}`;
+   
+    const response = await fetch(apiURL, {
+        method: 'GET', // or 'POST', 'PUT', etc.
+        headers: {
+            'Authorization': `Bearer ${token}`, // Add token to the Authorization header
+            'Content-Type': 'application/json',
+            // Add other headers if needed
+        }
+    });
     const data = await response.json();
-
+    if(data.status === 401){
+        console.log("call")
+        window.location.href = 'http://127.0.0.1:5502/template/login.html';
+    } 
     totalPage = data.totalPages;
    
     firstID = data.content[0].id;
     lastId = data.content[data.content.length - 1].id;
 
-    renderWords(data.content);
+    renderWords(data.content, callback);
 }
 
-function renderWords(words) {
+function renderWords(words, callback) {
     var htmls = "";
     words.forEach(word => {
-        htmls += `<a href = "word_detail.html?id=${word.id}" class="word-item"><label for="id">${word.id}</label><div class="name">${word.name}</div></a>`;
+        htmls += `<div  class="word-item"><label for="id">${word.id}</label><div class="name">${word.name}</div></div>`;
     });
     wordContainer.innerHTML = htmls;
-    // setUpWordListener();
+    setUpWordListener(callback);
 }
 
-// function setUpWordListener(){
-//     const words = wordContainer.getElementsByClassName("word-item");
-//     Array.of(words).forEach(word => {
-//         word.addEventListener("click", word => {
-            
-//         })
-//     })
-// }
+function setUpWordListener(callback){
+    const wordsItem = wordContainer.querySelectorAll(".word-item");
+    wordsItem.forEach(word=>{
+        word.addEventListener("click", function(event){
+            callback();
+            renderAddWord("detail", word.querySelector("label").innerHTML)
+        })
+    })
+}
 
-async function renderPage() {
-    await getPage(); // Ensure data is fetched before rendering the page
+async function renderPage(callback) {
+    await getPage(callback); // Ensure data is fetched before rendering the page
 
     var htmls = "";
     htmls += "<div class='previous page'>prev</div>";
@@ -106,10 +140,10 @@ async function renderPage() {
     htmls += "<div class='next page'>next</div>";
     pageContainer.innerHTML = htmls;
 
-    setupPaginationListeners();
+    setupPaginationListeners(callback);
 }
 
-function setupPaginationListeners() {
+function setupPaginationListeners(callback) {
     const pages = pageContainer.getElementsByClassName("page");
 
     Array.from(pages).forEach(page => {
@@ -125,7 +159,7 @@ function setupPaginationListeners() {
             }
 
             adjustMinPage();
-            renderPage();
+            renderPage(callback);
         });
     });
 }
@@ -138,4 +172,5 @@ function adjustMinPage() {
     }
 }
 
-start();
+// start();
+export {start}

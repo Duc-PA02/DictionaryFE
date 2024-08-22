@@ -97,7 +97,7 @@ body {
 /* Wrapper for content and pagination */
 .content-wrapper {
     flex: 1;
-    display: flex;
+    display: none;
     flex-direction: column;
 }
 
@@ -172,7 +172,7 @@ body {
 
 /* Pagination */
 .pagination-container {
-    display: flex;
+    display: none;
     justify-content: center;
     margin-top: auto;
 }
