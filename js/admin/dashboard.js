@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function() {
         breadcrumb.innerHTML = '';
         loadPermissionsAndDisplay();
     });
-    
     function resetDisplayState() {
         document.querySelector('.content').style.display = 'block';
         document.getElementById('user-detail-content').style.display = 'none';
@@ -245,16 +244,84 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function setupPagination(totalPages, callback) {
         pagination.innerHTML = "";
-        for (let i = 0; i < totalPages; i++) {
+        const maxPagesToShow = 3;
+        let startPage = 0;
+        let endPage = totalPages;
+    
+        // Xác định startPage và endPage để giới hạn số trang hiển thị
+        if (totalPages > maxPagesToShow) {
+            const half = Math.floor(maxPagesToShow / 2);
+            startPage = Math.max(0, Math.min(totalPages - maxPagesToShow, currentPage - half));
+            endPage = startPage + maxPagesToShow;
+        }
+    
+        // Nút "Đầu"
+        if (currentPage > 0) {
+            const firstButton = document.createElement("button");
+            firstButton.textContent = "«";
+            firstButton.addEventListener("click", () => {
+                currentPage = 0;
+                callback(currentPage);
+                setupPagination(totalPages, callback);
+            });
+            pagination.appendChild(firstButton);
+        }
+    
+        // Nút "Trước"
+        if (currentPage > 0) {
+            const prevButton = document.createElement("button");
+            prevButton.textContent = "‹";
+            prevButton.addEventListener("click", () => {
+                currentPage--;
+                callback(currentPage);
+                setupPagination(totalPages, callback);
+            });
+            pagination.appendChild(prevButton);
+        }
+    
+        // Tạo các nút cho các trang
+        for (let i = startPage; i < endPage; i++) {
             const button = document.createElement("button");
             button.textContent = i + 1;
+    
+            // Đánh dấu trang hiện tại
+            if (i === currentPage) {
+                button.classList.add("active");
+            }
+    
             button.addEventListener("click", () => {
                 currentPage = i;
-                callback(i);
+                callback(currentPage);
+                setupPagination(totalPages, callback);
             });
+    
             pagination.appendChild(button);
         }
-    }  
+    
+        // Nút "Tiếp theo"
+        if (currentPage < totalPages - 1) {
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "›";
+            nextButton.addEventListener("click", () => {
+                currentPage++;
+                callback(currentPage);
+                setupPagination(totalPages, callback);
+            });
+            pagination.appendChild(nextButton);
+        }
+    
+        // Nút "Cuối"
+        if (currentPage < totalPages - 1) {
+            const lastButton = document.createElement("button");
+            lastButton.textContent = "»";
+            lastButton.addEventListener("click", () => {
+                currentPage = totalPages - 1;
+                callback(currentPage);
+                setupPagination(totalPages, callback);
+            });
+            pagination.appendChild(lastButton);
+        }
+    } 
     
     logoutLink.addEventListener("click", function(event) {
         event.preventDefault(); // Ngăn chặn hành vi mặc định của link
