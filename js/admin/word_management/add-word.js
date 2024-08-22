@@ -93,7 +93,7 @@ function setUpWordButonContainerListener() {
                 callSaveWord();
             }
             // renderWord(states[1])
-            renderWord(states[0]);
+            // renderWord(states[0]);
             // renderWordLabel(states[0]);
             // renderTypeSection(states[0]);
         }
@@ -1373,6 +1373,10 @@ async function callAddWord() {
     });
 
     if (!response.ok) {
+        let error = await response.json();
+        wordLabel.querySelector(".error-message").innerHTML = error.message;
+        wordLabel.querySelector(".error-message").setAttribute("style","display: block;" )
+        wordLabel.querySelector("input").setAttribute("class", "word-name error")
         throw new Error('Network response was not ok');
     }
 
