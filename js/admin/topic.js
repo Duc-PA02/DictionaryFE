@@ -36,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const sidebarHeader = document.querySelector('.sidebar-header h2');
     const searchButton = document.getElementById("searchButton");
     const contentDiv = document.getElementById("contentSearchAddTopic");
+
+    
     // Set default sort and direction
     sortSelect.value = 'username';
     directionSelect.value = 'asc';
@@ -59,6 +61,14 @@ document.addEventListener("DOMContentLoaded", function() {
         addPermissionBtn.style.display = "none";
         topicList.style.display = "block";
         topicWord.style.display = "none";
+        contentWraperWordManage.style.display="none";
+        paginationContainer.style.display = "none";
+        //reset word-detail
+        wordLabel.style.display = "none"
+        typeSection.style.display = "none"
+        modalType.style.display = "none"
+        antonymSection.style.display = "none"
+        synonymSection.style.display = "none"
         paginationT.style.display = "flex";
         loadTopics(currentPage);
     });

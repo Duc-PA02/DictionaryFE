@@ -9,6 +9,7 @@
     <script src="../js/header.js" type="module" defer></script>
     <script src="../js/footer.js" defer></script>
     <script src="../js/searchBar.js" type="module"></script>
+    <script src="../js/detailWord.js" type="module"></script>
 </head>
 
 <body class="container">
@@ -82,6 +83,13 @@
     <!-- Vị trí footer -->
     <footer-component></footer-component>
 
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="app.closeModal()">&times;</span>
+            <p id="modalMessage"></p>
+            <button id="okButton" onclick="app.closeModal()">OK</button>
+        </div>
+    </div>
 </body>
 <script type="module">
     import { toggleAudio } from '../js/translate.js'; window.toggleAudio = toggleAudio; import { copyText } from '../js/translate.js'; window.copyText = copyText;
