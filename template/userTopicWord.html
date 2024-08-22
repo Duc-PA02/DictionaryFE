@@ -6,10 +6,8 @@
     <link type="text/css" href="../css/index.css" rel="stylesheet" />
     <link type="text/css" href="../css/userTopicWord.css" rel="stylesheet" />
 
-    <script src="../js/header.js" type="module" defer></script>
-    <script src="../js/footer.js" defer></script>
-    <script src="../js/searchBar.js" type="module"></script>
-    <script src="../js/userTopicWord.js" type="module"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js" defer></script>
+    <script type="module" src="../service/token.js"></script>
     <title>Topic Words</title>
 </head>
 <body>
@@ -42,7 +40,7 @@
                 <h2 class="nameTopic" id="nameTopic">Topic: </h2>
                 <div class="sort-container">
                     <h4 id="totalTopics">Total: 0</h4>
-                    <select id="sortSelect" onchange="sortTopics()">
+                    <select id="sortSelect" >
                         <option value="date_ascending">date_ascending</option>
                         <option value="date_descending">date_descending</option>
                         <option value="dictionary_asc">dictionary_asc</option>
@@ -55,7 +53,9 @@
     </div>
 
     <footer-component></footer-component>
-
-
+    <script src="../js/header.js" type="module" defer></script>
+    <script src="../js/footer.js" defer></script>
+    <script src="../js/searchBar.js" type="module"></script>
+    <script src="../js/userTopicWord.js" type="module"></script>
 </body>
 </html>

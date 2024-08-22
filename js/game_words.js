@@ -10,8 +10,14 @@ async function fetchWords() {
         console.log("token: " +token)
         const user = getUserFromToken(token);
         let userId = user.userId;
-        console.log("game: "+userId);
-        const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${userId}`);
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+        const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${userId}`, requestOptions);
         const result = await response.json();
         words = result.data.flatMap(wordItem => {
             const wordName = wordItem.words.name;

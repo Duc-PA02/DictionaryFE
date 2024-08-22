@@ -1,3 +1,6 @@
+import { getToken, getUserFromToken } from '../service/token.js';
+const token = getToken();
+const user = getUserFromToken(token);
 let currentSortDirection = 'date_ascending';
     let keyword = "";
     let sortDirection = "";
@@ -77,7 +80,7 @@ let currentSortDirection = 'date_ascending';
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-
+    myHeaders.append("Authorization", `Bearer ${token}`);
     const requestOptions = {
         method: "GET",
         headers: myHeaders,
@@ -110,10 +113,8 @@ let currentSortDirection = 'date_ascending';
             })
             .catch(error => console.error('Error:', error));
     }
-    function sortTopics() {
-        sortDirection = document.getElementById('sortSelect').value;
-        fetchTopicWords(keyword, sortDirection);
-    }
-
+ 
+     document.querySelector('#sortSelect').addEventListener("change", function(event){
+        fetchTopicWords(keyword, event.target.value);
+     })
     fetchTopicWords(keyword, currentSortDirection);
-

@@ -1,6 +1,9 @@
+import { getToken, getUserFromToken } from '../service/token.js';
 let keyword = "";
 let currentSortDirection = 'date_ascending';
 let sortDirection = "";
+const token = getToken();
+const user = getUserFromToken(token);
 document.getElementById('searchInput').addEventListener('input', function() {
     keyword = this.value; // Cập nhật giá trị keyword
     sortDirection = document.getElementById('sortSelect').value; // Lấy giá trị sắp xếp
@@ -8,7 +11,14 @@ document.getElementById('searchInput').addEventListener('input', function() {
 });
 let topics = [];
 async function fetchTopics(keyword, sortDirection = 'date_ascending', pageNumber=0) {
-    const response = await fetch(`http://localhost:8080/api/v1/user/topic?name=${keyword}&sortDirection=${sortDirection}&pageNumber=${pageNumber}`);
+    const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+    const response = await fetch(`http://localhost:8080/api/v1/user/topic?name=${keyword}&sortDirection=${sortDirection}&pageNumber=${pageNumber}`, requestOptions);
     const result = await response.json();
     if (result.success) {
         topics = result.data.content;
