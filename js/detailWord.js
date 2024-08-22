@@ -111,9 +111,14 @@ const app = {
 
         const user = getUserFromToken(token);
         const uid = user.userId;
-        fetch(`http://localhost:8080/api/v1/favoriteword/${uid}/${wid}`, {
-                method: 'POST'
-            })
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+        fetch(`http://localhost:8080/api/v1/favoriteword/${uid}/${wid}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');

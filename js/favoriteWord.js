@@ -14,7 +14,14 @@ document.getElementById('searchInput').addEventListener('input', function() {
 });
 
 async function fetchFavoriteWords(userId, keyword, sortDirection = 'id') {
-    const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${userId}?name=${keyword}&sortDirection=${sortDirection}`);
+    const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        const requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+    const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${userId}?name=${keyword}&sortDirection=${sortDirection}`,requestOptions);
     const result = await response.json();
     if (result.success) {
         favoritewords = result.data;
@@ -91,9 +98,14 @@ function displayFavoriteWords(words, sortDirection) {
     deleteAllIcon.className = 'delete-all-icon';
     deleteAllIcon.onclick = async () => {
             if (confirm("Are you sure you want to delete all favorite word?")) {
-                const response = await fetch(`http://localhost:8080/api/v1/favoriteword/delete_all/${userId}`, {
-                    method: 'DELETE'
-                });
+                const myHeaders = new Headers();
+                myHeaders.append("Authorization", `Bearer ${token}`);
+                const requestOptions = {
+                    method: "DELETE",
+                    headers: myHeaders,
+                    redirect: "follow"
+                };
+                const response = await fetch(`http://localhost:8080/api/v1/favoriteword/delete_all/${userId}`, requestOptions);
                 if (response.ok) {
                     fetchFavoriteWords(userId, keyword, currentSortDirection); // Gọi lại với tùy chọn hiện tại
                 } else {
@@ -129,9 +141,14 @@ function displayFavoriteWords(words, sortDirection) {
         deleteIcon.onclick = async () => {
             if (confirm("Are you sure you want to delete this favorite word?")) {
                 const id = word.id;
-                const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${id}`, {
-                    method: 'DELETE'
-                });
+                const myHeaders = new Headers();
+                myHeaders.append("Authorization", `Bearer ${token}`);
+                const requestOptions = {
+                    method: "DELETE",
+                    headers: myHeaders,
+                    redirect: "follow"
+                };
+                const response = await fetch(`http://localhost:8080/api/v1/favoriteword/${id}`, requestOptions);
                 if (response.ok) {
                     fetchFavoriteWords(userId, keyword, currentSortDirection); // Gọi lại với tùy chọn hiện tại
                 } else {

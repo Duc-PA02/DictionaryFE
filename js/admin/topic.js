@@ -609,9 +609,14 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function deleteTopicWord(twid){
         if (confirm("Are you sure you want to delete this word?")) {
-            fetch(`http://localhost:8080/api/v1/admin/topicword/${twid}`, {
-                method: 'DELETE'
-            })
+            const myHeaders = new Headers();
+            myHeaders.append("Authorization", `Bearer ${token}`);
+            const requestOptions = {
+                method: "DELETE",
+                headers: myHeaders,
+                redirect: "follow"
+            };
+            fetch(`http://localhost:8080/api/v1/admin/topicword/${twid}`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -800,9 +805,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     window.addWordToTheTopic = function(uid, tid, wid) {
-        fetch(`http://localhost:8080/api/v1/admin/topicword/${uid}/${tid}/${wid}`, {
-            method: 'POST'
-        })
+        const myHeaders = new Headers();
+        myHeaders.append("Authorization", `Bearer ${token}`);
+        const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            redirect: "follow"
+        };
+        fetch(`http://localhost:8080/api/v1/admin/topicword/${uid}/${tid}/${wid}`, requestOptions)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
