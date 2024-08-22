@@ -2,6 +2,17 @@ import { getToken, getUserFromToken } from '../../service/token.js';
 document.addEventListener("DOMContentLoaded", function() {
     const userLink = document.querySelector('.sidebar ul li a[href="#user"]');
     const settingsLink = document.querySelector('.sidebar ul li a[href="#api"]'); // Added settings link selector
+    
+    const wordLink = document.querySelector('.sidebar ul li a[href="#word"]');
+    const contentWraperWordManage = document.querySelector(".content-wrapper");
+    const paginationContainer = document.querySelector(".pagination-container");
+
+    const wordLabel = document.querySelector("#word-label");
+    const typeSection = document.querySelector("#type-section");
+    const modalType = document.querySelector(".modal-type");
+    const antonymSection = document.querySelector("#antonym-section");
+    const synonymSection = document.querySelector("#synonym-section");
+
     // vnp
     const topicLink = document.querySelector('.sidebar ul li a[href="#topic"]');
     const topicList = document.getElementById("topic-list");
@@ -25,6 +36,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const sidebarHeader = document.querySelector('.sidebar-header h2');
     const searchButton = document.getElementById("searchButton");
     const contentDiv = document.getElementById("contentSearchAddTopic");
+
+    
     // Set default sort and direction
     sortSelect.value = 'username';
     directionSelect.value = 'asc';
@@ -48,6 +61,14 @@ document.addEventListener("DOMContentLoaded", function() {
         addPermissionBtn.style.display = "none";
         topicList.style.display = "block";
         topicWord.style.display = "none";
+        contentWraperWordManage.style.display="none";
+        paginationContainer.style.display = "none";
+        //reset word-detail
+        wordLabel.style.display = "none"
+        typeSection.style.display = "none"
+        modalType.style.display = "none"
+        antonymSection.style.display = "none"
+        synonymSection.style.display = "none"
         paginationT.style.display = "flex";
         loadTopics(currentPage);
     });

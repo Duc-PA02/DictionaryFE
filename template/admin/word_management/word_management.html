@@ -16,16 +16,19 @@
         </div>
         <ul>
             <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
-            <li><a href="#"><i class="fas fa-user"></i> User</a></li>
-            <li><a href="word_management.html"><i class="fas fa-user"></i> Word Management</a></li>
-            <li><a href="#settings"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#user"><i class="fas fa-user"></i> User</a></li>
+            <li><a href="#api"><i class="fa-solid fa-hat-cowboy"></i>API</a></li>
+            <li><a href="#word"><i class="fa-solid fa-hat-cowboy"></i>Word</a></li>
+            <li><a href="#topic"><i class="fa-solid fa-hat-cowboy"></i>Topic</a></li>
             <li><a href="#logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>
     <div class="main-content">
         <div class="header">
+            <div id="breadcrumb"></div>
             <div class="menu">
-                <span>Welcome, !</span>
+                <i class="fa-sharp fa-solid fa-bell"></i>
+                <ul id="notification-list" class="notification-list"></ul>
             </div>
         </div>
         <div class="content">
@@ -52,6 +55,6 @@
         </div>
     </div>
     <script type="module" src="../../../js/admin/dashboard.js"></script>
-    <script src="../../../js/admin/word_management/word-management.js"></script>
+    <script type="module" src="../../../js/admin/word_management/word-management.js"></script>
 </body>
 </html>
