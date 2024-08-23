@@ -31,8 +31,32 @@ async function fetchFavoriteWords(userId, keyword, sortDirection = 'id') {
         displayFavoriteWords(favoritewords, sortDirection);
     }
 }
-
+const app = {
+    openModal: function(message) {
+        const modal = document.getElementById('messageModal');
+        const modalMessage = document.getElementById('modalMessage');
+        modalMessage.textContent = message;
+        modal.style.display = 'block';
+    },
+    closeModal: function() {
+        const modal = document.getElementById('messageModal');
+        modal.style.display = 'none';
+    }
+};
 function displayFavoriteWords(words, sortDirection) {
+    document.querySelector("#btnGame").addEventListener("click", function(){
+        if(words.length > 0){
+            location.href = 'game.html';
+        }else{
+            app.openModal('You cannot play games. Please add favorite words !!');
+        }
+    });
+    document.querySelector(".close").addEventListener("click", function(){
+            app.closeModal();
+    });
+    document.querySelector("#okButton").addEventListener("click", function(){
+        app.closeModal();
+    });
     const container = document.getElementById('favoriteWordsContainer');
     container.innerHTML = '';
 

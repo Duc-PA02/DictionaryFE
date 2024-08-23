@@ -32,15 +32,24 @@
     <div id="content" class="content">
         <!-- No search form -->
         <div class="container">
-            <button onclick="location.href='game.html'" id="btnGame" class="btnGame">Game</button>
+            <!-- onclick="location.href='game.html'" -->
+            <button id="btnGame" class="btnGame">Game</button>
             <div id="favoriteWordsContainer"></div>
         </div>
     </div>
 
     <!-- Vị trí footer -->
     <footer-component></footer-component>
-    <script type="module">
-        
+
+    <div id="messageModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="app.closeModal()">&times;</span>
+            <p id="modalMessage"></p>
+            <button id="okButton" onclick="app.closeModal()">OK</button>
+        </div>
+    </div>
+    
+    <script type="module">    
     </script>
 </body>
 
