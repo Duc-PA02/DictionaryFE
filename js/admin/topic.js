@@ -353,6 +353,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         document.getElementById('editTopicBtn').onclick = () => {
             editTopicModal.style.display = "block";
+            document.getElementById("topic-name-edit").value=topic.name;
         };
     
         // Thêm thông tin chi tiết topic
@@ -731,7 +732,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
-    function loadSearchWord(query){
+    window.loadSearchWord = function(query){
         const myHeaders = new Headers();
         myHeaders.append("Authorization", `Bearer ${token}`);
         const requestOptions = {
@@ -788,13 +789,13 @@ document.addEventListener("DOMContentLoaded", function() {
         });
         contentDiv.innerHTML += '<div class="section"><h3>Synonyms:</h3>';
         data.synonymsList.forEach(syn => {
-            contentDiv.innerHTML += `<a href="#" onclick="fetchWord('${syn.synonym.name}')">${syn.synonym.name}</a>, `;
+            contentDiv.innerHTML += `<a href="#" onclick="loadSearchWord('${syn.synonym.name}')">${syn.synonym.name}</a>, `;
         });
         contentDiv.innerHTML += '</div>';
 
         contentDiv.innerHTML += '<div class="section"><h3>Antonyms:</h3>';
         data.antonymsList.forEach(ant => {
-            contentDiv.innerHTML += `<a href="#" onclick="fetchWord('${ant.antonym.name}')">${ant.antonym.name}</a>, `;
+            contentDiv.innerHTML += `<a href="#" onclick="loadSearchWord('${ant.antonym.name}')">${ant.antonym.name}</a>, `;
         });
         contentDiv.innerHTML += '</div>';
     }
