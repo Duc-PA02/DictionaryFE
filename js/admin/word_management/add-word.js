@@ -914,8 +914,8 @@ function renderAntonymContainerEdit(){
 function setUpAntonymSearchListener(){
     antonymSection.querySelector("#antonym-search").addEventListener("input", async function(event){
         let wordName = event.target.value;
-        let listWord = await fetchWordByName(wordName);
-        renderAntonymResultSearch(listWord);
+        let responseData = await fetchWordByName(wordName);
+        renderAntonymResultSearch(responseData);
     })
 }
 
@@ -1040,8 +1040,8 @@ function renderSynonymsContainerEdit(){
 function setUpSynonymSearchListener(){
     synonymSection.querySelector("#synonym-search").addEventListener("input", async function(event){
         let wordName = event.target.value;
-        let listWord = await fetchWordByName(wordName);
-        renderSynonyResultSearch(listWord);
+        let responseData = await fetchWordByName(wordName);
+        renderSynonyResultSearch(responseData);
     })
 }
 
@@ -1094,7 +1094,6 @@ function addNewSynonym(wordItem){
 //render modal edit 
 
 function renderModalType(type, modalState){
-
     if(modalState===states[1]){
         renderModalEditType(type);
     }
@@ -1291,7 +1290,7 @@ async function getWord(wordID){
 
     // word = data;
     
-    word = convertWordBEToWordFE(data);
+    word = convertWordBEToWordFE(data.data);
     // renderWord();
     renderWord(states[0]);
     console.log(word);
@@ -1312,7 +1311,7 @@ async function getTypeNames() {
     }
     const data = await response.json();
    
-    typeNames = data
+    typeNames = data.data
     console.log("types: " +typeNames)
 }
 
@@ -1330,8 +1329,8 @@ async function fetchWordByName(wordName) {
         });
         const data = await response.json();
         
-        console.log(data)    
-        return data;
+        console.log(data.data)    
+        return data.data;
     }
     return []
 }
@@ -1381,7 +1380,7 @@ async function callAddWord() {
     }
 
     const data = await response.json();
-    word = convertWordBEToWordFE(data);
+    word = convertWordBEToWordFE(data.data);
     // window.location.href = `word_detail.html?id=${word.id}`
     renderAddWord("detail", word.id);
 
@@ -1407,10 +1406,10 @@ async function callSaveWord() {
     }
 
     const data = await response.json();
-    word = convertWordBEToWordFE(data);
+    word = convertWordBEToWordFE(data.data);
    
     renderWord(states[0]);
-    console.log("word Call save: " + JSON.stringify(data));
+    console.log("word Call save: " + JSON.stringify(data.data));
    
 }
 

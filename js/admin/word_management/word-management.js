@@ -30,10 +30,11 @@ function start(callback) {
         renderAddWord("add_word");
     })
     searcWord.addEventListener("input", async function(event){
-        var lsWord = await fetchWordByName(event.target.value);
+        const responseData = await fetchWordByName(event.target.value);
+        let data = responseData
         // renderResultSearch(lsWord);
-        console.log(lsWord);
-        renderResultSearch(lsWord, callback);
+        console.log(data);
+        renderResultSearch(data, callback);
     })
 }
 {/* <div class="search-container"></div> */}
@@ -56,7 +57,7 @@ async function fetchWordByName(wordName) {
             // throw new Error(`HTTP error! Status: ${response.status}`);
         }
         console.log(data)    
-        return data;
+        return data.data;
     }
     return []
     
@@ -78,6 +79,8 @@ function renderResultSearch(words,callback){
             wordItem.addEventListener("click", function(event){
                 callback();
                 renderAddWord("detail", word.id);
+                searcWord.value = ""
+                wordResult.innerHTML = "";
             })
         })
     }
@@ -95,13 +98,15 @@ async function getPage(callback) {
             // Add other headers if needed
         }
     });
-    const data = await response.json();
-    if(data.status === 401){
+    const responseData = await response.json();
+    if(responseData.status === 401){
         console.log("call")
         window.location.href = 'http://127.0.0.1:5502/template/login.html';
-    } 
+    }
+    const data = responseData.data
+    console.log(data)
     totalPage = data.totalPages;
-   
+    
     firstID = data.content[0].id;
     lastId = data.content[data.content.length - 1].id;
 
