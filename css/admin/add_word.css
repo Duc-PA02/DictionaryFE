@@ -178,15 +178,20 @@ input.error {
     flex-direction: column;
     justify-content: space-around;
 }
-
+#word-label{
+    margin-bottom: 10px;
+}
+#btn-add-type-container{
+    margin-top: 10px;
+}
 .type-item{
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
     display: flex;
     flex-direction: column;
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
     padding: 10px;
     position: relative;
-    border: 1px solid #d1d4d4;
+    /* border: 1px solid #d1d4d4; */
     /* border-top: #2c3e50 5px solid; */
     justify-content: space-around;
     transition: box-shadow 0.3s ease;
@@ -719,10 +724,10 @@ input.error {
     padding-top: 60px;
 }
 
-.modal-type .modal-content {
+.modal-type>.modal-content {
     background-color: #fefefe;
     margin: 5% auto;
-    padding: 20px;
+    padding: 0px;
     border: 1px solid #888;
     min-width: 1000px;
     position: relative;
