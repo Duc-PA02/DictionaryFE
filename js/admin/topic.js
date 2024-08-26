@@ -316,7 +316,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(response => response.json())
             .then(result => {
                 if (result.data.length > 0) {
-                    keywordTW="";
+                    // keywordTW="";
                     displayTopicWord(result.data);
                 } else {
                     loadTopicsNoneWord(topicId);

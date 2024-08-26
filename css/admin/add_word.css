@@ -736,6 +736,27 @@ input.error {
     align-items: stretch;
 }
 
+.modal-type>.modal-content::after {
+    content: "\f00d"; /* Font Awesome close icon */
+    font-family: "Font Awesome 5 Free"; /* Specify Font Awesome font */
+    font-weight: 900; /* Use solid style */
+    color: #ffffff; /* Màu biểu tượng */
+    position: absolute;
+    background-color: #e74c3c; /* Màu nền tùy chỉnh */
+    /* border-radius: 4px; Bo tròn các góc, hoặc bỏ nếu không muốn */
+    width: 20px; /* Kích thước cố định để tạo hình vuông */
+    height: 20px; /* Kích thước cố định để tạo hình vuông */
+    font-size: 16px; /* Kích thước font chữ */
+    top: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    right: 0; /* Điều chỉnh vị trí theo nhu cầu */
+    cursor: pointer;
+    display: flex; /* Sử dụng Flexbox */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+
 .modal-type .modal-content .type-item {
     display: flex;
     flex-direction: column;
@@ -905,99 +926,3 @@ i{
 .modal-type .type-item .definition-container {
     padding: 0px;
 }
-
-
-/* <div  class="modal-type ">
-                <div class="modal-content">
-                    <div class="type-item">
-                        <div>Edit noun of Hello</div>
-                        <div class = "type-id-container">
-                            <input type="text" value="13" class="type-id" readonly style ="display: none"/>
-                            <input type="text" value="0" class="position" readonly style ="display: none"/>
-                        </div>
-                        <div class = "type-label">
-                            <div class = "type-name">
-                                <label>Type: </label>
-                                    <select name="type" id="type">
-                                        <option  value="Adjective">Adjective</option>
-                                        <option  value="Adverb">Adverb</option>
-                                        <option value="Noun">Noun</option>
-                                        <option value="Prefix">Prefix</option>
-                                        <option selected value="Pronoun">Pronoun</option>
-                                        <option value="Exclamation">Exclamation</option>
-                                        <option value="Predeterminer">Predeterminer</option>
-                                    </select>             
-                            </div>
-                        </div>
-                        <div class="pronunciation-section">
-                            <div class="label-container">
-                                <label>Pronunciations: </label>
-                                <div class="btn-container">
-                                    <button id = "btn-add-pronunciation" class="btn btn-add">Add pronunciations</button>
-                                </div>
-                            </div>
-                            <div class = "pronunciation-container">
-                                <div class="pronunciation-item">
-                                    <input type ="hidden" class= "pronunciation-id" value ="25"/>
-                                    <input type ="hidden" class = "pronunciation-index" value ="0"/>
-                                    <div class="region">uk</div>
-                                    <div class="pronunciation">əˈbæn.dən</div>
-                                    <audio src="https://dictionary.cambridge.org/media/english/uk_pron/u/uka/uka__/uka____013.mp3" ></audio>
-                                    <i class="fa fa-volume-up"></i>
-                                    <div class="btn-container">
-                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
-                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
-                                    </div>
-                                </div>
-                                <div class="pronunciation-item">
-                                    <input type ="hidden" class= "pronunciation-id" value ="25"/>
-                                    <input type ="hidden" class = "pronunciation-index" value ="0"/>
-                                    <div class="region">uk</div>
-                                    <div class="pronunciation">əˈbæn.dən</div>
-                                    <audio src="https://dictionary.cambridge.org/media/english/uk_pron/u/uka/uka__/uka____013.mp3" ></audio>
-                                    <i class="fa fa-volume-up"></i>
-                                    <div class="btn-container">
-                                        <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
-                                        <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="definition-section"> 
-                            <div class="label-container">
-                                <label>Definitions: </label>
-                                <div class="btn-container">
-                                    <button id = "btn-add-definition" class="btn btn-add">Add definition</button>
-                                </div>
-                            </div>
-                            <div class="definition-container">
-                                <div class="definition-item">
-                                            <input type ="hidden" class = "definition-index" value ="0"/>
-                                            <input type ="hidden" class = "definition-id" value ="19"/>
-                                            <div class="definition">to leave a place, thing, or person, usually for ever</div>
-                                            <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
-                                            <div class="btn-container">
-                                                <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
-                                                <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
-                                            </div>
-                                </div>
-                                <div class="definition-item">
-                                            <input type ="hidden" class = "definition-index" value ="0"/>
-                                            <input type ="hidden" class = "definition-id" value ="19"/>
-                                            <div class="definition">to leave a place, thing, or person, usually for ever</div>
-                                            <div class="example ">We had to abandon the car., By the time the rebel troops arrived, the village had already been abandoned., As a baby he was abandoned by his mother., We were sinking fast, and the captain gave the order to abandon ship.</div> 
-                                            <div class="btn-container">
-                                                <button class = "btn btn-delete" id="btn-delete-pronunciation"  >Delete</button>
-                                                <button class = "btn btn-edit" id="btn-edit-pronunciations" >Edit</button>
-                                            </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn-container">
-                            <button id="save-type" class ="btn btn-save">Save Changes</button>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div> */
-
