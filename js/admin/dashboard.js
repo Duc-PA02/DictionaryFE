@@ -114,7 +114,6 @@ document.addEventListener("DOMContentLoaded", function() {
         antonymSection.style.display = "none"
         synonymSection.style.display = "none"
         pagination.style.display = "flex";
-        loadTopics(currentPage);
     });
 
     function renderWordDetail(){
