@@ -113,8 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
         modalType.style.display = "none"
         antonymSection.style.display = "none"
         synonymSection.style.display = "none"
-        paginationT.style.display = "flex";
-        loadTopics(currentPage);
+        pagination.style.display = "flex";
     });
 
     function renderWordDetail(){
