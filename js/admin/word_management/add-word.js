@@ -368,7 +368,7 @@ function setUpTypeItemListener(type, typeItemElement){
             typeItemElement.remove();
         }
         else{
-            alert("Cần ít nhất 1 type");
+            alert("Need at least 1 type");
         }
     })
     typeItemElement.querySelector(".btn-edit").addEventListener("click", function(event){
@@ -379,10 +379,10 @@ function setUpTypeItemListener(type, typeItemElement){
         // alert("save type");
         // alert(modalType.querySelectorAll(".pronunciation-item.edit"));
         if(modalType.querySelectorAll(".pronunciation-item.edit").length > 0){
-            alert("Vui lòng lưu các thay đổi của pronunciation");
+            alert("Please save pronunciation changes");
         }
         else if(modalType.querySelectorAll(".definition-item.edit").length > 0){
-           alert("Vui lòng lưu các thay đổi của definition");
+           alert("Please save definition changes");
         }
         else{
             modalType.setAttribute("style", "display: none");
@@ -575,7 +575,7 @@ function setUpPronunciationItemListener(pronunciationsList,pronunciationItemElem
             pronunciationItemElement.remove();
         }
         else{
-            alert("Cần ít nhất 1 pronunciation")
+            alert("Need at least 1 pronunciation")
         }
         
 
@@ -587,7 +587,7 @@ function setUpPronunciationItemListener(pronunciationsList,pronunciationItemElem
     pronunciationItemElement.querySelector(".btn-save").addEventListener("click", function(event){
         let s = validatePronunciation(pronunciationItemElement, pronunciation);
         if(!s){
-            alert("Không được để trống")
+            alert("Pronunciation fields cannot be left blank")
         }
         else{
             let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[2]);
@@ -774,35 +774,6 @@ function setOnClickAddDefinition(addDefinitionButton, definitionsList){
     })
 }
 
-// function setUpPronunciationItemListener(pronunciationsList,pronunciationItemElement, pronunciation){
-//     pronunciationItemElement.querySelector(".btn-delete").addEventListener("click", function(event){
-//         if(pronunciationsList.length > 1){
-//             var index= pronunciationsList.indexOf(pronunciation);
-//             pronunciationsList.splice(index, 1);
-//             pronunciationItemElement.remove();
-//         }
-//         else{
-//             alert("Cần ít nhất 1 pronunciation")
-//         }
-        
-
-//     });
-//     pronunciationItemElement.querySelector(".btn-edit").addEventListener("click", function(event){
-//         let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[1]);
-//         pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement )
-//     });
-//     pronunciationItemElement.querySelector(".btn-save").addEventListener("click", function(event){
-//         let s = validatePronunciation(pronunciationItemElement, pronunciation);
-//         if(!s){
-//             alert("Không được để trống")
-//         }
-//         else{
-//             let pronunEditElement = renderPronunciationItem(pronunciationsList, pronunciation, states[2]);
-//             pronunciationItemElement.parentElement.replaceChild(pronunEditElement, pronunciationItemElement );
-//         }
-//     });
-// }
-
 
 function setUpDefinitionItemListener(definitionsList, definitionElement, definition){
     definitionElement.querySelector(".btn-delete").addEventListener("click", function(event){
@@ -812,10 +783,8 @@ function setUpDefinitionItemListener(definitionsList, definitionElement, definit
             definitionElement.remove();
         }
         else{
-            alert("Cần ít nhất 1 definition")
+            alert("Need at least 1 definition")
         }
-        
-
     });
     definitionElement.querySelector(".btn-edit").addEventListener("click", function(event){
         let definitionEditElement = renderDefinitionItem(definitionsList, definition, states[1]);
@@ -824,7 +793,7 @@ function setUpDefinitionItemListener(definitionsList, definitionElement, definit
     definitionElement.querySelector(".btn-save").addEventListener("click", function(event){
         let s = validateDefinition(definitionElement, definition);
         if(!s){
-            alert("Không được để trống")
+            alert("Definition fields cannot be left blank")
         }
         else{
             let definitionEditElement = renderDefinitionItem(definitionsList, definition, states[2]);
@@ -1098,6 +1067,17 @@ function renderModalType(type, modalState){
         renderModalEditType(type);
     }
      else renderModalAddType(type);
+     modalType.querySelector(".modal-content").addEventListener("click", function(event){
+        const rect =   modalType.querySelector(".modal-content").getBoundingClientRect();
+        const x = event.clientX - rect.right + 20; // 20 is the width of the ::after element
+        const y = event.clientY - rect.top + 5;   // 5 is the top offset of the ::after element
+            
+            // Check if click was within the ::after element's area
+        if (x >= 0 && x <= 20 && y >= 0 && y <= 20) {
+            modalType.innerHTML = "";
+            modalType.style.display = "none";
+        }
+     })
 }
 
 function renderModalEditType(type){
